@@ -1,0 +1,20 @@
+\subsection{Statics}
+
+Most of the statics are the same, except lambda functions can be partial:
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+  
+\Infer
+  {\typeJ{\Gamma, \IsOf{x}{\tau_1}}{e}{\tau_2}}
+  {\typeJ{\Gamma}{\lamcst{\tau}{x}{e}}{\parrtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\typeJ{\Gamma}{f}{\parrtycst{\tau_1}{\tau_2}} \\ \typeJ{\Gamma}{e}{\tau_1}}
+  {\typeJ{\Gamma}{\appabt{f}{e}}{\tau_2}}
+
+\Infer
+  {\typeJ{\Gamma, \IsOf{x}{\tau}}{e}{\tau}}
+  {\typeJ{\Gamma}{\genrecabt{\tau}{x}{e}}{\tau}}
+
+\end{mathpar}

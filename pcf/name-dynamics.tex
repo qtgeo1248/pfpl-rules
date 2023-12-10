@@ -1,0 +1,10 @@
+\subsection{Dynamics}
+Even though it says by name, only the recursive type has by name dynamics; the rest
+are still by value.
+
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+
+\Infer{\strut}{\genrecabt{\tau}{x}{e} \StepsTo \Subst{\genrecabt{\tau}{x}{e}}{x}{e}}
+
+\end{mathpar}
