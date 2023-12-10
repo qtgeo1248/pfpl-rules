@@ -1,0 +1,14 @@
+\subsection{Statics}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+
+\Infer
+  {\typeJ{\Gamma, \IsOf{x}{\selftycst{\tau}}}{e}{\tau}}
+  {\typeJ{\Gamma}{\selfexabt{\tau}{x}{e}}{\selftycst{\tau}}}
+
+\Infer
+  {\typeJ{\Gamma}{e}{\selftycst{\tau}}}
+  {\typeJ{\Gamma}{\unselfexabt{e}}{\tau}}
+
+\end{mathpar}

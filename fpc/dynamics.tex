@@ -1,0 +1,18 @@
+\subsection{Dynamics}
+
+\boxed{\IsVal{v}}
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+  
+\Infer{\strut}{\IsVal{\selfexabt{\tau}{x}{e}}}
+
+\Infer
+  {e \StepsTo e'}
+  {\unselfexabt{e} \StepsTo \unselfexabt{e'}}
+
+\Infer{\strut}
+  {\unselfexabt{\selfexabt{\tau}{x}{e}} \StepsTo
+    \Subst{\selfexabt{\tau}{x}{e}}{x}{e}}
+
+\end{mathpar}
+

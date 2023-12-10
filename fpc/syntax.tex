@@ -1,0 +1,11 @@
+\subsection{Syntax}
+
+\begin{synchart}{}
+  \TypeSort     & \tau & \bnfdef & \ldots                 & \ldots                 & \text{everything else} \\
+                &      & \bnfalt & \selftyabt{\tau}       & \selftycst{\tau}       & \text{self-referential type} \\
+  \\
+  \ExprSort     & e    & \bnfdef & \ldots                 & \ldots                 & \text{everything else} \\
+                &      & \bnfalt & \selfexabt{\tau}{x}{e} & \selfexcst{\tau}{x}{e} & \text{self-referential expression} \\
+                &      & \bnfalt & \unselfexabt{e}        & \unselfexcst{e}        & \text{unroll self-reference}
+\end{synchart}
+
