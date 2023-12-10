@@ -1,0 +1,16 @@
+\subsection{Syntax}
+\begin{synchart}{syn:ma-stack}
+  \TypeSort     & \tau   & \bnfdef & \cdots                     & \cdots                     & \text{everything else}        \\
+  \\
+  \ExprSort     & e      & \bnfdef & \cdots                     & \cdots                     & \text{everything else}        \\
+  \\
+  \Sort{Cmd}    & m      & \bnfdef & \cdots                     & \cdots                     & \text{everything else} \\
+  \\
+  \Sort{Stack} & k    & \bnfdef   & \EmptyStack                     & \EmptyStack                      & \text{empty stack} \\
+               &      & \bnfalt   & \ConsStack{\FrameBnd{x}{m}}{k}  & \ConsStack{\FrameBnd{x}{m}}{k}   & \text{sequenced command} \\
+               &      & \bnfalt   & \ConsStack{\FrameDcl{a}}{k}     & \ConsStack{\FrameDcl{a}}{k}      & \text{allocation frame} \\
+  \\
+  \Sort{Mach}  & \mathcal{M}  & \bnfdef   & \CEvalM{k}{m}{\Sigma}{\mu}      & \CEvalM{k}{m}{\Sigma}{\mu}       & \text{machine evaluates} \\
+               &              & \bnfalt   & \CRetM{k}{e}{\Sigma}{\mu}       & \CRetM{k}{e}{\Sigma}{\mu}        & \text{machine returns} \\
+  \\
+\end{synchart}

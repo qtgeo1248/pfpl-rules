@@ -1,0 +1,76 @@
+%%% exercise infrastructure, adapted from pfpl
+
+\allowdisplaybreaks[1]       %mildly permissible to break up displayed equations
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\NewDocumentCommand{\Infer}{s o m m}{%
+  \IfBooleanTF{#1}%
+    {\IfNoValueTF{#2}%
+      {\inferrule{#3}{#4}}%
+      {\inferrule*[right={#2}]{#3}{#4}}}%
+    {\IfNoValueTF{#2}%
+      {\inferrule{#3}{#4}}%
+      {\inferrule*[Right={#2}]{#3}{#4}}}%
+}
+
+\newenvironment{infrules}[1]{\begin{subequations}\label{rules:#1}}{\end{subequations}\ignorespacesafterend}
+\newenvironment{infrule}[1]{\begin{equation}\label{rule:#1}\vcenter\bgroup}{\egroup\end{equation}\ignorespacesafterend}
+
+\newenvironment{synchart}[1]%
+{\begin{equation*}
+      \label{eqn:#1}
+      \renewcommand{\bnfalt}{\mathrel{\phantom{\mid}}}
+      \begin{array}{llc@{\quad\extracolsep{\fill}}lll}
+}
+{\end{array}\end{equation*}\ignorespacesafterend}
+
+\newenvironment{synchart*}[1]%
+{\begin{equation*}
+      \label{syn:#1}
+      \renewcommand{\bnfalt}{\mathrel{\phantom{\mid}}}
+      \begin{array}{llc@{\quad\extracolsep{\fill}}lll}
+        \textit{Sort} & & & \textit{Abstract} & \textit{Concrete} & \textit{Description} \\
+}
+{\end{array}\end{equation*}\ignorespacesafterend}
+
+\newcounter{taskcounter}
+\newcounter{taskPercentCounter}
+\newcounter{taskcounterSection}
+\setcounter{taskcounter}{1}
+\setcounter{taskPercentCounter}{0}
+\setcounter{taskcounterSection}{\value{section}}
+\newcommand{\mayresettaskcounter}{\ifthenelse{\value{taskcounterSection} < \value{section}}
+{\setcounter{taskcounterSection}{\value{section}}\setcounter{taskcounter}{1}}
+{}}
+
+%% part of a problem
+\newcommand{\task}[1]
+  {{\bf Task\mayresettaskcounter{}\addtocounter{taskPercentCounter}{#1} \arabic{section}.\arabic{taskcounter}\addtocounter{taskcounter}{1}} (#1 pts).}
+
+\newcommand{\ectask}
+  {\bigskip \noindent {\bf Task\mayresettaskcounter{} \arabic{section}.\arabic{taskcounter}\addtocounter{taskcounter}{1}} (Extra Credit).}
+
+\newcommand{\problemset}[1]
+  {\ifthenelse{\equal{\issolution}{true}}
+  {}{{#1}}}
+
+% Solution-only - uses an "input" so that it's still safe to publish the problem set file
+\definecolor{solutioncolor}{rgb}{0.0, 0.0, 0.5}
+\newcommand{\solution}[1]
+  {\ifthenelse{\equal{\issolution}{true}}
+  {\begin{quote}
+    \addtocounter{taskcounter}{-1}
+    \fbox{\textcolor{solutioncolor}{\bf Solution \arabic{section}.\arabic{taskcounter}}}
+    \addtocounter{taskcounter}{1}
+    \textcolor{solutioncolor}{\input{solutions/#1}}
+  \end{quote}}
+  {}%
+  \vspace{2em}}

@@ -1,0 +1,60 @@
+\subsection{Dynamics}
+\boxed{\IsInitial{\RState{m}{\Sigma}{\mu}}}
+\boxed{\IsFinal{\RState{m}{\Sigma}{\mu}}}
+\begin{mathpar}
+\Infer*[\RDynOf{\kw{init}}]
+  {\strut}
+  {\IsInitial{\RState{m}{\emptyset}{\emptyset}}}
+
+\Infer*[\RDynOf{\kw{fin}}]
+  {\IsVal{v}}
+  {\IsFinal{\RState{\retcst{v}}{\Sigma}{\mu}}}
+\end{mathpar}
+
+
+\boxed{\RState{m}{\Sigma}{\mu} \StepsTo{} \RState{m'}{\Sigma'}{\mu'}}
+\begin{mathpar}
+\Infer*[\RDynIOf{1}{\kw{ret}}]
+  {e \StepsTo{} e'}
+  {\RState{\retcmdabt{e}}{\Sigma}{\mu} \StepsTo{} \RState{\retcmdabt{e'}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{1}{\kw{bnd}}]
+  {\RState{m}{\Sigma}{\mu} \StepsTo{} \RState{m'}{\Sigma}{\mu'}}
+  {\RState{\seqcmdabt{\cmdabt{m}}{x}{m_1}}{\Sigma}{\mu} \StepsTo{} \RState{\seqcmdabt{\cmdabt{m'}}{x}{m_1}}{\Sigma}{\mu'}}
+
+\Infer*[\RDynIOf{2}{\kw{bnd}}]
+  {\IsVal{v}}
+  {\RState{\seqcmdabt{\cmdabt{\retcmdabt{v}}}{x}{m_1}}{\Sigma}{\mu} \StepsTo{} \RState{\Subst{v}{x}{m_1}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{3}{\kw{bnd}}]
+  {e \StepsTo{} e'}
+  {\RState{\seqcmdabt{e}{x}{m''}}{\Sigma}{\mu} \StepsTo{} \RState{\seqcmdabt{e'}{x}{m''}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{1}{\kw{get}}]
+  {\strut}
+  {\RState{\getvarabt{a}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{e}} \StepsTo{}
+   \RState{\retcmdabt{e}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{e}}}
+
+\Infer*[\RDynIOf{1}{\kw{set}}]
+  {e \StepsTo{} e'}
+  {\RState{\setvarabt{a}{e}}{\Sigma, \HasSym{a}{\tau}}{\mu} \StepsTo{} \RState{\setvarabt{a}{e'}}{\Sigma, \HasSym{a}{\tau}}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{set}}]
+  {\IsVal{v}}
+  {\RState{\setvarabt{a}{v}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v'}}
+      \StepsTo{}
+   \RState{\retcmdabt{\unitexcst}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}}
+
+\Infer*[\RDynIOf{1}{\kw{dcl}}]
+  {e \StepsTo{} e'}
+  {\RState{\tnewvarabt{\tau}{e}{a}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \RState{\tnewvarabt{\tau}{e'}{a}{m}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{dcl}}]
+  {\IsVal{v}}
+  {\RState{\tnewvarabt{\tau}{v}{a}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \RState{m}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}}
+\end{mathpar}
+

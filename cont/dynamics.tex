@@ -1,0 +1,71 @@
+\subsection{Dynamics}
+All of these don't need any assumptions:
+
+\boxed{\IsInitial{s}}
+\boxed{\IsFinal{s}}
+\begin{mathpar}
+  \Infer{\strut}{\IsInitial{\CEval{\epsilon}{e}}}
+
+  \Infer{\strut}{\IsFinal{\CRet{\epsilon}{v}}}
+\end{mathpar}
+
+\boxed{s \StepsTo s'}
+\begin{mathpar}
+\Infer{\strut}{
+  \CEval{k}{\letccabt{\tau}{x}{e}} \StepsTo
+  \CEval{k}{\Subst{\contexabt{k}}{x}{e}}}
+
+\Infer{\strut}{
+  \CEval{k}{\throwabt{\rho}{e_1}{e_2}} \StepsTo
+  \CEval{\ConsStack{\throwabt{\rho}{\text{--}}{e_2}}{k}}{e_1}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\throwabt{\rho}{\text{--}}{e_2}}{k}}{v} \StepsTo
+  \CEval{\ConsStack{\throwabt{\rho}{v}{\text{--}}}{k}}{e_2}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\throwabt{\rho}{\contexabt{k'}}{\text{--}}}{k}}{v'} \StepsTo
+  \CRet{k'}{v}}
+
+\Infer{\strut}{
+  \CEval{k}{\zeroabt} \StepsTo
+  \CRet{k}{\zeroabt}}
+
+\Infer{\strut}{
+  \CEval{k}{\succabt{e}} \StepsTo
+  \CEval{\ConsStack{\succabt{\text{--}}}{k}}{e}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\succabt{\text{--}}}{k}}{\overline{n}} \StepsTo
+  \CRet{k}{\overline{n+1}}}
+
+\Infer{\strut}{
+  \CEval{k}{\varifzabt{e}{e_0}{x}{e_1}} \StepsTo
+  \CEval{\ConsStack{\varifzabt{\text{--}}{e_0}{x}{e_1}}{k}}{e}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\varifzabt{\text{--}}{e_0}{x}{e_1}}{k}}{\zeroabt} \StepsTo
+  \CEval{k}{e_0}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\varifzabt{\text{--}}{e_0}{x}{e_1}}{k}}{\overline{n + 1}} \StepsTo
+  \CEval{k}{\Subst{\overline{n}}{x}{e_1}}}
+
+\Infer{\strut}{
+  \CEval{k}{\appabt{f}{e}} \StepsTo
+  \CEval{\ConsStack{\appabt{\text{--}}{e}}{k}}{f}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\appabt{\text{--}}{e}}{k}}{f} \StepsTo
+  \CEval{\ConsStack{\appabt{f}{\text{--}}}{k}}{e}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\appabt{\lamabt{\tau}{x}{e}}{\text{--}}}{k}}{v} \StepsTo
+  \CEval{k}{\Subst{v}{x}{e}}}
+
+\Infer{\strut}{
+  \CRet{\ConsStack{\appabt{\funabt{\tau_1}{\tau_2}{f}{x}{e}}{\text{--}}}{k}}{v} \StepsTo
+  \CEval{k}{\Subst{\funabt{\tau_1}{\tau_2}{f}{x}{e}, v}{f, x}{e}}}
+\\
+  \ldots
+\end{mathpar}

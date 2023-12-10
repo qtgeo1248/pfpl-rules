@@ -1,0 +1,24 @@
+\subsection{Dynamics}
+The declaration command now runs the command with a temporary scope:
+
+\boxed{\RState{m}{\Sigma}{\mu} \StepsTo{} \RState{m'}{\Sigma'}{\mu'}}
+\begin{mathpar}
+\Infer*[\RDynIOf{1}{\kw{dcl}}]
+  {e \StepsTo{} e'}
+  {\RState{\tnewvarabt{\tau}{e}{a}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \RState{\tnewvarabt{\tau}{e'}{a}{m}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{dcl}}]
+  {
+    \IsVal{v} \\
+    \RState{m}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}} \StepsTo{}
+      \RState{m'}{\Sigma', \HasSym{a}{\tau}}{\extff{\mu'}{a'}{v'}}}
+  {\RState{\tnewvarabt{\tau}{v}{a}{m}}{\Sigma}{\mu} \StepsTo{}
+    \RState{\tnewvarabt{\tau}{v'}{a}{m'}}{\Sigma'}{\mu'}}
+
+\Infer*[\RDynIOf{2}{\kw{dcl}}]
+  {\IsVal{v} \\ \IsVal{v'}}
+  {\RState{\tnewvarabt{\tau}{v}{a}{\retcst{v'}}}{\Sigma}{\mu} \StepsTo{}
+    \RState{\retcst{v'}}{\Sigma}{\mu}}
+\end{mathpar}

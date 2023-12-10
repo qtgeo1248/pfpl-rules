@@ -1,0 +1,26 @@
+\subsection{Dynamics}
+
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+
+\Infer[D$_{\unittyabt}$-$\kw{map}$]{\strut}
+  {\genexabt{t}{\unittyabt}{x}{e'}{e} \StepsTo e}
+
+
+\Infer[D$_{\voidtyabt}$-$\kw{map}$]{\strut}
+  {\genexabt{t}{\voidtyabt}{x}{e'}{e} \StepsTo \abortexcst{}{e}}
+
+
+\Infer[D$_{\times}$-$\kw{map}$]{\strut}
+  {\genexabt{t}{\prodtycst{\tau_1}{\tau_2}}{x}{e'}{e} \StepsTo 
+    \pairexcst{\genexabt{t}{\tau_1}{x}{e'}{\fstexcst{e}}}{\genexabt{t}{\tau_2}{x}{e'}{\sndexcst{e}}}}
+
+\Infer[D$_{+}$-$\kw{map}$]{\strut}
+  {\genexabt{t}{\sumtycst{\tau_1}{\tau_2}}{x}{e'}{e} \StepsTo 
+    \caseexcst{e}{a}{}{\inlexcst{}{\genexabt{t}{\tau_1}{x}{e'}{a}}}{b}{}{\inrexcst{}{\genexabt{t}{\tau_1}{x}{e'}{b}}}}
+
+\Infer[D$_{\kw{Var}}$-$\kw{map}$]
+  {\strut}
+  {\genexabt{t}{t}{x}{e'}{e} \StepsTo \Subst{e}{x}{e'}}
+
+\end{mathpar}

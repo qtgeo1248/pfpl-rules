@@ -1,0 +1,45 @@
+\subsection{Statics}
+\subsubsection{Expressions}
+
+\boxed{\Gamma \entails[\Sigma]{\IsOf{e}{\tau}}}
+\begin{mathpar}
+\Infer*[\RIntroOf{\kw{cmd}}]
+  {\Gamma \entails[\Sigma]{\IsOfM{m}{\tau}}}
+  {\Gamma \entails[\Sigma]{\IsOf{\cmdabt{m}}{\gcmdtycst{\tau}}}} \\
+\end{mathpar}
+
+\subsubsection{Commands}
+
+\boxed{\Gamma \entails[\Sigma]{\IsOfM{m}{\tau}}}.
+\begin{mathpar}
+\Infer*[\RCmdOf{\kw{ret}}]
+  {\Gamma \entails[\Sigma]{\IsOf{e}{\tau}}}
+  {\Gamma \entails[\Sigma]{\IsOfM{\retcmdabt{e}}{\tau}}}
+
+\Infer*[\RCmdOf{\kw{bnd}}]
+  {\Gamma \entails[\Sigma]{\IsOf{e}{\gcmdtycst{\tau'}}} \\
+   \Gamma, \IsOf{x}{\tau'} \entails[\Sigma]{\IsOfM{m}{\tau}}}
+  {\Gamma \entails[\Sigma]{\IsOfM{\seqcmdabt{e}{x}{m}}{\tau}}} \\
+
+\Infer*[\RCmdOf{\kw{get}}]
+  {\strut}
+  {\Gamma \entails[\Sigma, \HasSym{a}{\tau}]{\IsOfM{\getvarabt{a}}{\tau}}}
+
+\Infer*[\RCmdOf{\kw{set}}]
+  {\Gamma \entails[\Sigma, \HasSym{a}{\tau}]{\IsOf{e}{\tau}}}
+  {\Gamma \entails[\Sigma, \HasSym{a}{\tau}]{\IsOfM{\setvarabt{a}{e}}{\unittycst}}}
+
+\Infer*[\RCmdOf{\kw{dcl}}]
+  {\Gamma \entails[\Sigma, \HasSym{a}{\tau}]{\IsOfM{m}{\tau'}} \\
+   \Gamma \entails[\Sigma]{\IsOf{e}{\tau}}}
+  {\Gamma \entails[\Sigma]{\IsOfM{\tnewvarabt{\tau}{e}{a}{m}}{\tau'}}}
+\end{mathpar}
+
+\subsubsection{Machines}
+\boxed{\entails[\Sigma]{\IsOK{\RState{m}{\Sigma}{\mu}}}}
+\begin{mathpar}
+  \Infer*[$M-\textrm{Ok}$]
+    {\entails[\Sigma]{\IsOfM{m}{\tau}} \\
+     \forall_{a \in \Sigma}(\,\entails[\Sigma]{\IsOf{\mu(a)}{\Sigma(a)}})}
+    {\IsOK{\RState{m}{\Sigma}{\mu}}}
+\end{mathpar}

@@ -1,0 +1,69 @@
+\subsection{Statics}
+\subsubsection{Expressions}
+\boxed{\Gamma \entails{\IsOf{e}{\tau}}}
+\begin{mathpar}
+\Infer
+  {\Gamma, \IsOf{x}{\conttyabt{\tau}} \entails{\IsOf{e}{\tau}}}
+  {\Gamma \entails{\IsOf{\letccabt{\tau}{x}{e}}{\tau}}}
+
+\Infer
+  {\Gamma \entails{\IsOf{e_1}{\conttycst{\tau}}} \\ \Gamma \entails{\IsOf{e_2}{\tau}}}
+  {\Gamma \entails{\IsOf{\throwabt{\rho}{e_1}{e_2}}{\rho}}}
+
+\Infer
+  {\Gamma \entails{\IsOfStack{k}{\tau}}}
+  {\Gamma \entails{\IsOf{\contexcst{k}}{\conttycst{\tau}}}}
+\end{mathpar}
+
+\subsubsection{Stacks}
+The judgement $\IsOfStack{k}{\tau}$ means that the stack $k$ accepts a value of type $\tau$.
+Notice that typing for e does not carry a context $\Gamma$ with it. Since we evaluate onl
+closed terms, $x$ should be the only free variable in $e$. Note that the ``return type''
+of the frame whould be what the stack before accepts.
+
+\boxed{\IsOfStack{k}{\tau}}
+\begin{mathpar}
+\Infer
+  {\strut}
+  {\IsOfStack{\epsilon}{\tau}}
+
+\Infer
+  {\IsOfStack{k}{\tau_2} \\ \IsOf{e}{\tau_1}}
+  {\IsOfStack{\ConsStack{\appabt{\text{--}}{e}}{k}}{\arrtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\IsOfStack{k}{\tau_2} \\ \IsOf{f}{\arrtycst{\tau_1}{\tau_2}} \\ \IsVal{f}}
+  {\IsOfStack{\ConsStack{\appabt{f}{\text{--}}}{k}}{\tau_1}}
+
+\Infer
+  {\IsOfStack{k}{\tau'} \\ \IsOf{e_0}{\rho} \\ \IsOf{x}{\nattycst} \entails{\IsOf{e}{\rho}}}
+  {\IsOfStack{\ConsStack{\varifzabt{\text{--}}{e_0}{x}{e_1}}{k}}{\nattyabt}}
+
+\Infer
+  {\IsOfStack{k}{\nattycst}}
+  {\IsOfStack{\ConsStack{\succabt{\text{--}}}{k}}{\nattyabt}}
+
+\Infer
+  {\IsOfStack{k}{\tau'} \\ \IsOf{e_2}{\tau}}
+  {\IsOfStack{\ConsStack{\throwabt{\rho}{\text{--}}{e_2}}{k}}{\conttycst{\tau}}}
+
+\Infer
+  {\IsOfStack{k}{\tau'} \\ \IsOf{e_1}{\conttycst{\tau}}}
+  {\IsOfStack{\ConsStack{\throwabt{\rho}{e_1}{\text{--}}}{k}}{\tau}}
+\\
+\ldots
+\end{mathpar}
+
+\subsubsection{States}
+$\IsOK{s}$ means that state $s$ is well-formed
+
+\boxed{\IsOK{s}}
+\begin{mathpar}
+\Infer
+  {\IsOfStack{k}{\tau} \\ \IsOf{e}{\tau}}
+  {\IsOK{\CEval{k}{e}}}
+
+\Infer
+  {\IsOfStack{k}{\tau} \\ \IsOf{v}{\tau} \\ \IsVal{v}}
+  {\IsOK{\CRet{k}{v}}}
+\end{mathpar}

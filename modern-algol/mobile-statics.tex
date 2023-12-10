@@ -1,0 +1,47 @@
+\subsection{Statics}
+
+\subsubsection{Expressions}
+Same as before
+
+\subsubsection{Commands}
+
+On the command level, the declaration command now demands the return type and the type of
+the assignable to be \emph{mobile}. Intuitively, a type is mobile if its values does not depend on assignables. This
+is to prevent the declared assignable to leave the scope of declaration and break safety.
+
+\boxed{\Gamma \entails[\Sigma]{\IsOfM{m}{\tau}}}
+\begin{mathpar}
+\Infer*[\RCmdOf{\kw{dcl}}]
+  {\Gamma \entails[\Sigma]{\IsOf{e}{\tau}} \\
+   \Gamma \entails[\Sigma, \HasSym{a}{\tau}]{\IsOfM{m}{\tau'}} \\
+   \IsMobile{\tau} \\
+   \IsMobile{\tau'}}
+  {\Gamma \entails[\Sigma]{\IsOfM{\tnewvarabt{\tau}{e}{a}{m}}{\tau'}}}
+\end{mathpar}
+
+The mobility judgment is defined inductively on the structure of $\tau$. Notably, command type is not mobile as it
+can contain encapsulated accesses to the assignable. In addition, function types are not mobile, as the expression
+in the body of the function may contain encapsulated commands.
+
+\boxed{\IsMobile{\tau}}
+\begin{mathpar}
+\Infer*[$M_\nattycst$]
+  {\strut}
+  {\IsMobile{\nattycst}}
+
+\Infer*[$M_\unittycst$]
+  {\strut}
+  {\IsMobile{\unittycst}}
+
+\Infer*[$M_\voidtycst$]
+  {\strut}
+  {\IsMobile{\voidtycst}}\\
+
+\Infer*[$M_{+}$]
+  {\IsMobile{\tau_1} \\ \IsMobile{\tau_2}}
+  {\IsMobile{\sumtycst{\tau_1}{\tau_2}}}
+
+\Infer*[$M_{\times}$]
+  {\IsMobile{\tau_1} \\ \IsMobile{\tau_2}}
+  {\IsMobile{\prodtycst{\tau_1}{\tau_2}}}
+\end{mathpar}

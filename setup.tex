@@ -1,0 +1,138 @@
+% general setup for a homework assignment
+
+\usepackage{ifthen}
+\usepackage{xparse}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{proof}
+\usepackage{colonequals}
+\usepackage{comment}
+\usepackage{textcomp}
+\usepackage[us]{optional}
+\usepackage{color}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphics}
+\usepackage{mathpartir}
+\usepackage{enumitem}
+\usepackage{tikz}
+
+% these two are used to create the wavy division sign
+\usepackage{stackengine}
+\usepackage{scalerel}
+
+\usepackage{hyperref}
+\usepackage[nameinlink, capitalise]{cleveref}
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+\renewrobustcmd{\path}[1]{\colorbox{green!60!black!12}{\texttt{\detokenize{#1}}}}
+
+\usepackage{listings}
+
+% fix line numbering with linerange
+\makeatletter
+\lst@Key{matchrangestart}{f}{\lstKV@SetIf{#1}\lst@ifmatchrangestart}
+\def\lst@SkipToFirst{%
+    \lst@ifmatchrangestart\c@lstnumber=\numexpr-1+\lst@firstline\fi
+    \ifnum \lst@lineno<\lst@firstline
+        \def\lst@next{\lst@BeginDropInput\lst@Pmode
+        \lst@Let{13}\lst@MSkipToFirst
+        \lst@Let{10}\lst@MSkipToFirst}%
+        \expandafter\lst@next
+    \else
+        \expandafter\lst@BOLGobble
+    \fi}
+\makeatother
+
+\definecolor{background_color}{RGB}{240, 240, 240}
+\definecolor{string_color}    {RGB}{180, 156,   0}
+\definecolor{keyword_color}   {RGB}{ 64, 100, 255}
+\definecolor{comment_color}   {RGB}{  0, 117, 110}
+\definecolor{number_color}    {RGB}{ 84,  84,  84}
+\lstset{
+  basicstyle=\ttfamily,
+  breaklines=true,
+  breakatwhitespace,
+  numberstyle=\tiny\ttfamily\color{number_color},
+  matchrangestart=t,
+  rulecolor=\color{black},
+  backgroundcolor=\color{background_color},
+  stringstyle=\color{string_color},
+  showstringspaces=false,
+  keywordstyle=\color{keyword_color},
+  commentstyle=\color{comment_color},
+  alsoletter={\\},
+  literate=
+    {`}{{\char18}}1
+    {λ}{{$\lambda$}}1
+    {τ}{{$\tau$}}1
+    {Γ}{{$\Gamma$}}1
+    {⊢}{{$\vdash$}}1
+    {μ}{{$\mu$}}1
+    {ρ}{{$\rho$}}1
+    {ν}{{$\nu$}}1
+    {σ}{{$\sigma$}}1
+}
+
+\lstdefinelanguage{sml}{
+    language=ML,
+    morestring=[b]",
+    morecomment=[s]{(*}{*)},
+    morekeywords={
+        bool, char, exn, int, real, string, unit, list, option,
+        EQUAL, GREATER, LESS, NONE, SOME, nil,
+        andalso, orelse, true, false, not,
+        if, then, else, case, of, as,
+        let, in, end, local, val, rec,
+        datatype, type, exception, handle,
+        fun, fn, op, raise, ref,
+        structure, struct, signature, sig, functor, where,
+        include, open, use, infix, infixr, o, print
+    }
+}
+
+% code inline
+\newrobustcmd{\code}[2][]{{\sloppy
+\ifmmode
+    \text{\colorbox{background_color}{\lstinline[language=sml,#1]`#2`}}
+\else
+    {\colorbox{background_color}{\lstinline[language=sml,#1]`#2`}}%
+\fi}}
+% code block
+\lstnewenvironment{codeblock}[1][]{\lstset{language=sml,numbers=none,#1}}{}
+% code file
+\newrobustcmd{\codefile}[2][]{%
+  \lstinputlisting%
+    [language=sml,mathescape=false,frame=single,xleftmargin=3pt,xrightmargin=3pt,title={\path{#2}},numbers=left,#1]%
+    %{../../src/dist/#2}
+    {../#2}
+}
+
+\usepackage{caption}
+\DeclareCaptionFormat{listing}{\hfill#1#2#3\vskip1pt}
+\captionsetup[lstlisting]{format=listing,singlelinecheck=false, margin=0pt, font={sf},labelsep=space,labelfont=bf}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+
+\usepackage{newunicodechar}
+\newunicodechar{λ}{$\lambda$}
+
+%\usepackage{exercises}
+
+\input{infrastructure}
+
+\newtheorem*{hint}{Hint}
+
+\usepackage{import}
+
+\newcommand{\PFPL}[1][]{\textbf{\textsf{PFPL}}\ifthenelse{\equal{#1}{}}{}{, Chapter~#1}}

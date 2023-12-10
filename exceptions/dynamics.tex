@@ -1,0 +1,20 @@
+\subsection{Dynamics}
+Lots of propogation has been omitted. The judgement $e \raises v$ means that an
+exception is being raised
+
+\boxed{\IsVal{e}}
+\boxed{e \StepsTo e'}
+\boxed{e \raises v}
+\begin{mathpar}
+\Infer{e \StepsTo e'}{\raiseabt{}{e} \StepsTo \raiseabt{}{e'}}
+
+\Infer{e \raises e'}{\raiseabt{}{e} \raises e'}
+
+\Infer{\IsVal{v}}{\raiseabt{}{v} \raises v}
+
+\Infer{e \StepsTo e'}{\handleabt{e}{x}{e_1} \StepsTo \handleabt{e'}{x}{e_1}}
+
+\Infer{\IsVal{v}}{\handleabt{v}{x}{e_1} \StepsTo v}
+
+\Infer{e \raises e'}{\handleabt{e}{x}{e_1} \StepsTo \Subst{e'}{x}{e_1}}
+\end{mathpar}

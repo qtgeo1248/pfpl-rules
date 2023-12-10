@@ -1,0 +1,36 @@
+\subsection{Syntax}
+
+\begin{synchart}{ca}
+  \TypeSort     & \tau   & \bnfdef & \dots                     & \dots                     & \text{other types} \\
+                &        & \bnfalt & \gcmdtyabt{\tau}          & \gcmdtycst{\tau}          & \text{command} \\
+                &        & \bnfalt & \chtyabt{\tau}            & \chtycst{\tau}            & \text{channel} \\
+  \\
+  \ExprSort     & e      & \bnfdef & \dots                     & \dots                     & \text{other expressions} \\
+                &        & \bnfalt & \tcmdabt{\tau}{m}         & \cmdcst{m}                & \text{encapsulation} \\
+                &        & \bnfalt & \chabt{}{a}               & \chcst{}{a}               & \text{channel reference} \\
+  \\
+  \Sort{Cmd}    & m      & \bnfdef & \retcmdabt{e}             & \retcmdcst{e}             & \text{return} \\
+                &        & \bnfalt & \seqcmdabt{e}{x}{m}       & \seqcmdcst{e}{x}{m}       & \text{sequence} \\
+                &        & \bnfalt & \spawncmdabt{e}           & \spawncmdcst{e}           & \text{spawn process} \\
+                &        & \bnfalt & \ssendrefcmdabt{e_1}{e_2} & \ssendrefcmdcst{e_1}{e_2} & \text{send message on channel} \\
+                &        & \bnfalt & \synccmdabt{e}            & \synccmdcst{e}            & \text{receive message on channel} \\
+                &        & \bnfalt & \newchncmdabt{a}{\tau}{m} & \newchncmdcst{a}{\tau}{m} & \text{new channel} \\
+  \\
+  \Sort{Proc}   & p      & \bnfdef & \stopprocabt              & \stopproccst             & \text{nullary concurrent composition} \\
+                &        & \bnfalt & \concprocabt{p_1}{p_2}    & \concproccst{p_1}{p_2}   & \text{binary concurrent composition} \\
+                &        & \bnfalt & \tnewprocabt{\tau}{a}{p}  & \tnewproccst{\tau}{a}{p} & \text{new channel} \\
+                &        & \bnfalt & \atprocabt{a}{m}          & \atproccst{a}{m}         & \text{atomic} \\
+                &        & \bnfalt & \sendprocabt{a}{e}        & \sendproccst{a}{e}       & \text{send on channel $a$} \\
+                &        & \bnfalt & \recvprocabt{a}{x}{p}     & \recvproccst{a}{x}{p}    & \text{receive on channel $a$} \\
+  \\
+  \Sort{Action} & \alpha & \bnfdef & \silactabt                & \silactcst               & \text{silent} \\
+                &        & \bnfalt & \tsndactabt{}{a}{e}       & \tsndactcst{}{a}{e}      & \text{send} \\
+                &        & \bnfalt & \trcvactabt{}{a}{e}       & \trcvactcst{}{a}{e}      & \text{receive} \\
+\end{synchart}
+
+\newcommand{\highlight}[1]{\colorbox{black!10}{#1}}
+
+\begin{defn}[Synchronicity]
+  We say that an operation runs \highlight{synchronously} if it must complete before further operations can begin.
+  Conversely, we say that an operation runs \highlight{asynchronously} if it immediately returns, running concurrently and thus not blocking further operations.
+\end{defn}

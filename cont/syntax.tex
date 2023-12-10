@@ -1,0 +1,24 @@
+\subsection{Syntax}
+
+\begin{synchart}{syn:free-ma}
+  \TypeSort  & \tau   & \bnfdef   & \cdots                     & \text{everything else} \\
+             &        &           & \conttyabt{\tau}           & \text{continuation} \\
+  \\
+  \ExprSort  & e      & \bnfdef   & \cdots                     & \text{everything else} \\
+             &        &           & \letccabt{\tau}{x}{e}      & \text{capturing current continuation} \\
+             &        &           & \throwabt{\tau}{k}{e}      & \text{reinstate captured continuation} \\
+             &        &           & \contexabt{k}              & \text{reified stack} \\
+  \\
+  \StackSort & k      & \Coloneqq & \EmptyStack                & \text{empty stack} \\
+             &        &           & \StackFrame{k}{f}          & \text{stack frame} \\
+  \\
+  \FrameSort & f      & \Coloneqq & \appabt{\text{--}}{e}                   & \\
+             &        &           & \appabt{f}{\text{--}}                   & \\
+             &        &           & \varifzabt{\text{--}}{e_0}{x}{e_1}   & \\
+             &        &           & \succabt{\text{--}}                     & \\
+             &        &           & \ldots                                  & \text{and many more!} \\
+  \\
+  \StateSort & s      & \Coloneqq & \CEval{k}{e}               & \text{evaluating } e \text{ for stack } k \\
+             &        &           & \CRet{k}{v}                & \text{returning } v \text{ to stack } k
+\end{synchart}
+

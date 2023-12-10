@@ -1,0 +1,127 @@
+\subsection{Dynamics}
+
+The dynamics of processes are given via actions $\alpha$; the judgment $\jpstepp{p}{\alpha}{\Sigma}{p'}$ states that process $p$ steps to $p'$ with action $\alpha$.
+
+\subsubsection{Expressions}
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{V}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\jeval{e}{\Sigma}$}
+\begin{mathpar}
+  \infern
+  { }
+  {\jeval{\chabt{}{a}}{\Sigma,\Has{a}{\tau}}}
+  \and
+  \infern
+  { }
+  {\jeval{\tcmdabt{\tau}{m}}{\Sigma}}
+\end{mathpar}
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{D}_{\arabic{infercount}}\stepcounter{infercount})}
+\renewcommand{\axiomn}[1]{\infern{ }{#1}}
+
+
+\subsubsection{Commands}
+
+\fbox{$\jmstepp{m}{}{\Sigma}{m'}$}
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{M}_{\arabic{infercount}}\stepcounter{infercount})}
+\renewcommand{\axiomn}[1]{\infern{ }{#1}}
+\begin{mathpar}
+  \infern
+  {\jestep{e}{\Sigma}{e'}}
+  {\jmstepp{\retcmdabt{e}}{}{\Sigma}{\retcmdabt{e'}}}
+  \and
+  \infern
+  {\jestep{e}{\Sigma}{e'}}
+  {\jmstepp{\seqcmdabt{e}{x}{m}}{}{\Sigma}{\seqcmdabt{e'}{x}{m}}}
+  \and
+  \infern
+  {\jestep{e}{\Sigma}{e'}}
+  {\jmstepp{\spawncmdabt{e}}{}{\Sigma}{\spawncmdabt{e'}}}
+  \and
+  \infern
+  {\jestep{e_1}{\Sigma}{e_1'}}
+  {\jmstepp{\ssendrefcmdabt{e_1}{e_2}}{}{\Sigma}{\ssendrefcmdabt{e_1'}{e_2}}}
+  \and
+  \infern
+  {\jeval{e_1}{\Sigma} \\ \jestep{e_2}{\Sigma}{e_2'}}
+  {\jmstepp{\ssendrefcmdabt{e_1}{e_2}}{}{\Sigma}{\ssendrefcmdabt{e_1}{e_2'}}}
+  \and
+  \infern
+  {\jestep{e}{\Sigma}{e'}}
+  {\jmstepp{\synccmdabt{e}}{}{\Sigma}{\synccmdabt{e'}}}
+\end{mathpar}
+
+\subsubsection{Processes}
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{P}_{\arabic{infercount}}\stepcounter{infercount})}
+\renewcommand{\axiomn}[1]{\infern{ }{#1}}
+\fbox{$\jpstepp{p}{\alpha}{\Sigma}{p'}$}
+\begin{mathpar}
+  \infern
+  {\jpstepp{p_1}{\alpha}{\Sigma}{p_1'}}
+  {\jpstepp{\concproccst{p_1}{p_2}}{\alpha}{\Sigma}{\concproccst{p_1'}{p_2}}}
+
+  \infern
+  {\jpstepp{p_1}{\tsndactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{p_1'} \\
+    \jpstepp{p_2}{\trcvactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{p_2'}
+  }
+  {\jpstepp{\concproccst{p_1}{p_2}}{\silactcst}{\Sigma, \Has{a}{\tau}}{\concproccst{p_1'}{p_2'}}}
+
+  \infern
+  {\jpstepp{p}{\alpha}{\Sigma, \Has{a}{\tau}}{p'}\\
+    \actionabt{\alpha}{\Sigma}}
+  {\jpstepp{\tnewproccst{\tau}{a}{p}}{\alpha}{\Sigma}{\tnewproccst{\tau}{a}{p'}}}
+
+  \infern
+  { }
+  {\jpstepp{\sendproccst{a}{e}}{\tsndactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{\stopproccst}}
+
+  \infern
+  { }
+  {\jpstepp{\recvproccst{a}{x}{p}}{\trcvactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{\Subst{e}{x}{p}}}
+
+  \infern{
+    \jmstepp{m}{}{\Sigma}{m'}
+  }{\jpstepp{\atproccst{a}{m}}{\silactcst}{\Sigma}{\atproccst{a}{m'}}}
+\end{mathpar}
+This is for atomic processes, so now we are out of scope of process calculus and into concurrent algol.
+Note that $\kw{spawn}$ and $\kw{emitref}$ are asynchronous while $\kw{bnd}$ and $\kw{sync}$ are synchronous
+\begin{mathpar}
+  \infern{
+    \jeval{v}{\Sigma, \Has{a}{\tau}}
+  }{\jpstepp{\atproccst{a}{\retcmdabt{v}}}{\silactcst}{\Sigma, \Has{a}{\tau}}{\sendproccst{a}{v}}}
+
+  \infern
+  {    }
+  { \jpstepp{\atproccst{a}{\seqcmdabt{\tcmdabt{\tau'}{m_1}}{x}{m_2}}}
+    {\silactcst}{\Sigma, \Has{a}{\tau}}
+    {\tnewproccst{\tau'}{b}{\concproccst{\atproccst{b}{m_1}}{\recvproccst{b}{x}{\atproccst{a}{m_2}}}}
+    }}
+
+  \infern
+  {  }
+  { \jpstepp{\atproccst{a}{\spawncmdabt{\tcmdabt{\tau}{m}}}}
+    {\silactcst}{\Sigma, \Has{a}{\chtyabt{\tau}}}
+    {\tnewproccst{\tau}{b}{\concproccst{\atproccst{b}{m}}{\atproccst{a}{\retcmdabt{\chabt{}{b}}}}} }}
+
+  \infern
+  { \jeval{v}{\Sigma, \Has{a}{\unittyabt}, \Has{b}{\tau}} }
+  { \jpstepp{\atproccst{a}{\ssendrefcmdabt{\chabt{}{b}}{v}} }
+    {\silactcst}{\Sigma, \Has{a}{\unittyabt}, \Has{b}{\tau}}
+    {\concproccst{\sendproccst{b}{v}}{\atproccst{a}{\retcmdabt{\unitexcst}}}}}
+
+  \infern
+  {  }
+  { \jpstepp{\atproccst{a}{\synccmdabt{\chabt{}{b}}}}
+    {\silactcst}{\Sigma, \Has{a}{\tau}, \Has{b}{\tau}}
+    {\recvproccst{b}{x}{\atproccst{a}{\retcmdabt{x}}}}}
+
+  \infern
+  { }
+  { \jpstepp{\atproccst{a}{\newchncmdabt{b}{\tau}{m}} }
+    {\silactcst}{\Sigma, \Has{a}{\tau}}
+    {\tnewproccst{\tau}{b}{\atproccst{a}{m}}}}
+\end{mathpar}

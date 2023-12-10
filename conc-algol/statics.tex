@@ -1,0 +1,193 @@
+\subsection{Statics}
+
+\subsubsection{Expressions}
+
+A channel context $\Sigma = \Has{a_1}{\tau_1}, \dots, \Has{a_n}{\tau_n}$ describes the names and associated types of channels that are available for use.
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{SE}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\jse{\Gamma}{\Sigma}{e}{\tau}$}
+\begin{mathpar}
+  \infern
+  {\jsm{\Gamma}{\Sigma}{m}{\tau}}
+  {\jse{\Gamma}{\Sigma}{\tcmdabt{\tau}{m}}{\gcmdtyabt{\tau}}}
+
+  \infern
+  { }
+  {\jse{\Gamma}{\Sigma, \Has{a}{\tau}}{\chabt{}{a}}{\chtyabt{\tau}}}
+\end{mathpar}
+
+\subsubsection{Commands}
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{SM}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\jsm{\Gamma}{\Sigma}{m}{\tau}$}
+\begin{mathpar}
+  \infern
+  {\jse{\Gamma}{\Sigma}{e}{\tau}}
+  {\jsm{\Gamma}{\Sigma}{\retcmdabt{e}}{\tau}}
+
+  \infern
+  {\jse{\Gamma}{\Sigma}{e}{\gcmdtyabt{\tau}} \\
+    \jsm{\Gamma,x:\tau}{\Sigma}{m}{\tau'}
+  }
+  {\jsm{\Gamma}{\Sigma}{\seqcmdabt{e}{x}{m}}{\tau'}}
+
+  \infern
+  {\jse{\Gamma}{\Sigma}{e}{\gcmdtyabt{\tau}}
+  }
+  {\jsm{\Gamma}{\Sigma}{\spawncmdabt{e}}{\chtyabt{\tau}}}
+
+  \infern
+  {\jse{\Gamma}{\Sigma}{e_1}{\chtyabt{\tau}} \\
+    \jse{\Gamma}{\Sigma}{e_2}{\tau}
+  }
+  {\jsm{\Gamma}{\Sigma}{\ssendrefcmdabt{e_1}{e_2}}{\unittyabt}}
+
+  \infern
+  {\jse{\Gamma}{\Sigma}{e}{\chtyabt{\tau}}}
+  {\jsm{\Gamma}{\Sigma}{\synccmdabt{e}}{\tau}}
+
+  \infern
+  {\jsm{\Gamma}{\Sigma, \Has{a}{\tau}}{m}{\tau'}}
+  {\jsm{\Gamma}{\Sigma}{\newchncmdabt{a}{\tau}{m}}{\tau'}}
+\end{mathpar}
+
+\subsubsection{Processes}
+
+\paragraph{Atomic Processes}
+Atomic processes $\atproccst{a}{m}$ contain commands $m$, which will be user-written programs.
+It will be arranged in the dynamics that the channel $a$ of an atomic process eventually receives the result of the command $m$.
+
+\begin{remark}
+  Processes and actions are not user-level constructs, like stacks $k$ and states $s$ in \LangKPCF{}.
+  Programmers will write commands $m$, \emph{not} processes $p$.
+\end{remark}
+
+
+\subsubsection{Process Typing}
+
+The judgment $\jsp{\Sigma}{p}$ describes the valid processes relative to the signature $\Sigma$ and context $\Gamma$. Processes have to be typed under a specific context due to the existence of accepting processes.
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{SP}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\jsp{\Sigma}{p}$}
+\begin{mathpar}
+  \infern
+  { }
+  {\jsp{\Sigma}{\stopproccst}}
+
+  \infern
+  {\jsp{\Sigma}{p_1} \\ \jsp{\Sigma}{p_2}}
+  {\jsp{\Sigma}{\concproccst{p_1}{p_2}}}
+
+  \infern
+  {\jsp{\Sigma, \Has{a}{\tau}}{p}}
+  {\jsp{\Sigma}{\tnewproccst{\tau}{a}{p}}}
+
+  \infern
+  {\jsm{\Gamma}{\Sigma, \Has{a}{\tau}}{m}{\tau}}
+  {\jsp{\Sigma, \Has{a}{\tau}}{\atproccst{a}{m}}}
+
+  \infern
+  {\jse{\Gamma}{\Sigma, \Has{a}{\tau}}{e}{\tau}}
+  {\jsp{\Sigma, \Has{a}{\tau}}{\sendproccst{a}{e}}}
+
+  \infern
+  {\jspc{\Gamma, x : \tau}{\Sigma, \Has{a}{\tau}}{p} }
+  {\jsp{\Sigma, \Has{a}{\tau}}{\recvproccst{a}{x}{p}} }
+\end{mathpar}
+
+\subsubsection{Process Structural Congruence}
+
+Processes $p$ are identified up to structural congruence, an equivalence relation written $\jspeq{p_1}{p_2}$.
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{E}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\jspeq{p_1}{p_2}$}
+
+First, we state that $\jspeq{p_1}{p_2}$ is an equivalence relation (reflexive, symmetric, and transitive):
+\begin{mathpar}
+  \infern
+  {\AlphaEq{p_1}{p_2}}
+  {\jspeq{p_1}{p_2}}
+  \and
+  \infern
+  {\jspeq{p_2}{p_1}}
+  {\jspeq{p_1}{p_2}}
+  \and
+  \infern
+  {\jspeq{p_1}{p_2} \\ \jspeq{p_2}{p_3}}
+  {\jspeq{p_1}{p_3}}
+\end{mathpar}
+Then, we state that $\jspeq{p_1}{p_2}$ is a congruence:
+\begin{mathpar}
+  \infern
+  {\jspeq{p_1}{p_1'} \\ \jspeq{p_2}{p_2'}}
+  {\jspeq{\concproccst{p_1}{p_2}}{\concproccst{p_1'}{p_2'}}}
+  \and
+  \infern
+  {\jspeq{p}{p'}}
+  {\jspeq{\tnewproccst{\tau}{a}{p}}{\tnewproccst{\tau}{a}{p'}}}
+  \and
+  \infern
+  {\jspeq{p}{p'}}
+  {\jspeq{\recvproccst{a}{x}{p}}{\recvproccst{a}{x}{p'}}}
+\end{mathpar}
+
+We guarantee that $\stopproccst$ and $\concproccst{-}{-}$ form a commutative monoid:
+\begin{mathpar}
+  \infern
+  {\strut}
+  {\jspeq{\concproccst{p_1}{(\concproccst{p_2}{p_3})}}{\concproccst{(\concproccst{p_1}{p_2})}{p_3}}}
+  \and
+  \infern
+  {\strut}
+  {\jspeq{\concproccst{p}{\stopproccst}}{p}}
+  \and
+  \infern
+  {\strut}
+  {\jspeq{\concproccst{p_1}{p_2}}{\concproccst{p_2}{p_1}}}
+\end{mathpar}
+
+We allow new channels to be reordered, removed if unused, and hoisted to the top level provided they do not incur capture.
+Rule E$_{12}$ is called \emph{scope extrusion}, since it allows the scope of $a$ to be extruded out of the concurrent composition.
+\begin{mathpar}
+  \infern
+  {a_1 \ne a_2}
+  {\jspeq{\tnewproccst{\tau_1}{a_1}{\tnewproccst{\tau_2}{a_2}{p}}}{\tnewproccst{\tau_2}{a_2}{\tnewproccst{\tau_1}{a_1}{p}}}}
+  \and
+  \infern
+  {a \notin p}
+  {\jspeq{\tnewproccst{\tau}{a}{p}}{p}}
+  \and
+  \infern
+  {a \notin p_2}
+  {\jspeq{\concproccst{(\tnewproccst{\tau}{a}{p_1})}{p_2}}{\tnewproccst{\tau}{a}{(\concproccst{p_1}{p_2})}}}
+  \and
+  \infern
+  {a_1 \ne a_2}
+  {\jspeq{\recvproccst{a_2}{x}{\tnewproccst{\tau}{a_1}{p}}}
+    {\tnewproccst{\tau}{a_1}{\recvproccst{a_2}{x}{p}}}}
+\end{mathpar}
+
+\subsubsection{Actions}
+
+Actions also admit a statics, given by the judgment $\actionabt{\alpha}{\Sigma}$.
+
+\setcounter{infercount}{1}
+\renewcommand{\infern}[2]{\inferrule{#1}{#2}(\text{A}_{\arabic{infercount}}\stepcounter{infercount})}
+\fbox{$\actionabt{\alpha}{\Sigma}$}
+\begin{mathpar}
+  \infern{ }{\actionabt{\silactcst}{\Sigma}}
+  \and
+  \infern{
+    \jse{}{\Sigma, \Has{a}{\tau}}{e}{\tau}
+  }{\actionabt{\tsndactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}}
+  \and
+  \infern{
+    \jse{}{\Sigma, \Has{a}{\tau}}{e}{\tau}
+  }{\actionabt{\trcvactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}}
+
+\end{mathpar}
+

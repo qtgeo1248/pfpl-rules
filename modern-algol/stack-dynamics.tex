@@ -1,0 +1,72 @@
+\subsection{Dynamics}
+
+Unlike $\LangMA$ with free assignables, the terminal state of the
+machine must be a return of value to the empty stack, with an \emph{empty} assignable signature and memory. This is
+because the assignables are scoped.
+
+\boxed{\IsInitial{\mathcal{M}}}
+\boxed{\IsFinal{\mathcal{M}}}
+\begin{mathpar}
+\Infer*[\RDynOf{\kw{init}}]
+  {\strut}
+  {\IsInitial{\CEvalM{\EmptyStack}{m}{\emptyset}{\emptyset}}}
+
+\Infer*[\RDynOf{\kw{fin}}]
+  {\IsVal{e}}
+  {\IsFinal{\CRetM{\EmptyStack}{e}{\emptyset}{\emptyset}}}
+\end{mathpar}
+
+Rules again insist that principal
+expression be evaluated before the commands themselves. The sequencing command pushes a sequencing frame onto the stack.
+The declaration command pushes a declaration frame onto the stack, and extends the signature along with the memory.
+
+\boxed{\mathcal{M} \StepsTo{} \mathcal{M}'}
+\begin{mathpar}
+\Infer*[\RDynOf{\kw{ret}}]
+  {e \StepsTo{} e'}
+  {\CEvalM{k}{\retcmdabt{e}}{\Sigma}{\mu}
+      \StepsTo{}
+   \CEvalM{k}{\retcmdabt{e'}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{1}{\kw{bnd}}]
+  {e \StepsTo{} e'}
+  {\CEvalM{k}{\seqcmdabt{e}{x}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \CEvalM{k}{\seqcmdabt{e'}{x}{m}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{bnd}}]
+  {\strut}
+  {\CEvalM{k}{\seqcmdabt{\cmdabt{m}}{x}{m'}}{\Sigma}{\mu}
+     \StepsTo{}
+   \CEvalM{\ConsStack{\FrameBnd{x}{m'}}{k}}{m}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{1}{\kw{get}}]
+  {\IsVal{v}}
+  {\CEvalM{k}{\getvarabt{a}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}
+      \StepsTo{}
+   \CRetM{k}{v}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}}
+
+\Infer*[\RDynIOf{1}{\kw{set}}]
+  {e \StepsTo{} e'}
+  {\CEvalM{k}{\setvarabt{a}{e}}{\Sigma, \HasSym{a}{\tau}}{\mu}
+      \StepsTo{}
+   \CEvalM{k}{\setvarabt{a}{e'}}{\Sigma, \HasSym{a}{\tau}}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{set}}]
+  {\IsVal{v}}
+  {\CEvalM{k}{\setvarabt{a}{v}}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v'}}
+      \StepsTo{}
+   \CRetM{k}{\unitexcst}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}}
+
+\Infer*[\RDynIOf{1}{\kw{dcl}}]
+  {e \StepsTo{} e'}
+  {\CEvalM{k}{\tnewvarabt{\tau}{e}{a}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \CEvalM{k}{\tnewvarabt{\tau}{e'}{a}{m}}{\Sigma}{\mu}}
+
+\Infer*[\RDynIOf{2}{\kw{dcl}}]
+  {\IsVal{v}}
+  {\CEvalM{k}{\tnewvarabt{\tau}{v}{a}{m}}{\Sigma}{\mu}
+      \StepsTo{}
+   \CEvalM{\ConsStack{\FrameDcl{a}}{k}}{m}{\Sigma, \HasSym{a}{\tau}}{\extff{\mu}{a}{v}}}
+\end{mathpar}

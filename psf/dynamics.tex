@@ -1,0 +1,116 @@
+
+\subsection{Dynamics (Eager, Left-to-Right)}
+
+\subsubsection{Functions}
+
+\begin{mathpar}
+  \Infer
+    {\strut}
+    {\IsVal{\lamabt{\tau_1}{x}{e_2}}}
+  \\
+
+  \Infer
+    {e \StepsTo e'}
+    {\appabt{e}{e_1} \StepsTo \appabt{e'}{e_1}}
+
+  \Infer
+    {
+      \IsVal{e} \\
+      e_1 \StepsTo e_1'
+    }
+    {\appabt{e}{e_1} \StepsTo \appabt{e}{e_1'}}
+
+  \Infer
+    {\IsVal{e_1}}
+    {\appabt{(\lamabt{\tau_1}{x}{e_2})}{e_1} \StepsTo \Subst{e_1}{x}{e_2}}
+\end{mathpar}
+
+\subsubsection{Products}
+
+\begin{mathpar}
+  \Infer
+    {\strut}
+    {\IsVal{\unitexabt}}
+\end{mathpar}
+
+\begin{mathpar}
+  \Infer
+    {e_1 \StepsTo e_1'}
+    {\pairexabt{e_1}{e_2} \StepsTo \pairexabt{e_1'}{e_2}}
+
+  \Infer
+    {
+      \IsVal{e_1} \\
+      e_2 \StepsTo e_2'
+    }
+    {\pairexabt{e_1}{e_2} \StepsTo \pairexabt{e_1}{e_2'}}
+
+  \Infer
+    {
+      \IsVal{e_1} \\
+      \IsVal{e_2}
+    }
+    {\IsVal{\pairexabt{e_1}{e_2}}}
+  \\
+
+  \Infer
+    {e \StepsTo e'}
+    {\fstexabt{e} \StepsTo \fstexabt{e'}}
+
+  \Infer
+    {
+      \IsVal{e_1} \\
+      \IsVal{e_2}
+    }
+    {\fstexabt{\pairexabt{e_1}{e_2}} \StepsTo e_1}
+
+  \Infer
+    {e \StepsTo e'}
+    {\sndexabt{e} \StepsTo \sndexabt{e'}}
+
+  \Infer
+    {
+      \IsVal{e_1} \\
+      \IsVal{e_2}
+    }
+    {\sndexabt{\pairexabt{e_1}{e_2}} \StepsTo e_2}
+\end{mathpar}
+
+\subsubsection{Sums}
+
+\begin{mathpar}
+  \Infer
+    {e \StepsTo e'}
+    {\absurdexabt{\tau}{e} \StepsTo \absurdexabt{\tau}{e'}}
+\end{mathpar}
+
+\begin{mathpar}
+  \Infer
+    {e \StepsTo e'}
+    {\inlexabt{\tau_1}{\tau_2}{e} \StepsTo \inlexabt{\tau_1}{\tau_2}{e'}}
+
+  \Infer
+    {\IsVal{e}}
+    {\IsVal{\inlexabt{\tau_1}{\tau_2}{e}}}
+
+  \Infer
+    {e \StepsTo e'}
+    {\inrexabt{\tau_1}{\tau_2}{e} \StepsTo \inrexabt{\tau_1}{\tau_2}{e'}}
+
+  \Infer
+    {\IsVal{e}}
+    {\IsVal{\inrexabt{\tau_1}{\tau_2}{e}}}
+  \\
+
+  \Infer
+    {e \StepsTo e'}
+    {\caseexabt{e}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2} \StepsTo \caseexabt{e'}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2}}
+
+  \Infer
+    {\IsVal{e}}
+    {\caseexabt{\inlexabt{\tau_1}{\tau_2}{e}}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2} \StepsTo \Subst{e}{x_1}{e_1}}
+
+  \Infer
+    {\IsVal{e}}
+    {\caseexabt{\inrexabt{\tau_1}{\tau_2}{e}}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2} \StepsTo \Subst{e}{x_2}{e_2}}
+\end{mathpar}

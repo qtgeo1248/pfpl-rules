@@ -1,0 +1,48 @@
+\subsection{Dynamics}
+
+\boxed{\IsVal{e}}
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+
+\Infer{\strut}{\IsVal{\numabt{n}}}
+
+\Infer{\strut}{\IsVal{\strabt{s}}}
+
+\Infer
+  {e_1 \StepsTo e_1'}
+  {\plusabt{e_1}{e_2} \StepsTo \plusabt{e_1'}{e_2}}
+
+\Infer
+  {\IsVal{v_1} \\ e_2 \StepsTo e_2'}
+  {\plusabt{v_1}{e_2} \StepsTo \plusabt{v_1}{e_2'}}
+  
+\Infer
+  {n_1 + n_2 = n}
+  {\plusabt{\numabt{n_1}}{\numabt{n_2}} \StepsTo \numabt{n}}
+
+\Infer
+  {e_1 \StepsTo e_1'}
+  {\catabt{e_1}{e_2} \StepsTo \catabt{e_1'}{e_2}}
+
+\Infer
+  {\IsVal{v_1} \\ e_2 \StepsTo e_2'}
+  {\catabt{v_1}{e_2} \StepsTo \catabt{v_1}{e_2'}}
+  
+\Infer
+  {s_1 \text{\^{}} s_2 = s}
+  {\catabt{\strabt{s_1}}{\strabt{s_2}} \StepsTo \strabt{s}}
+
+\left[
+  \Infer
+    {e_1 \StepsTo e_1'}
+    {\letbeabt{e_1}{x}{e_2} \StepsTo \letbeabt{e_1'}{x}{e_2}}
+\right]
+
+
+\Infer
+  {[\IsVal{e_1}]}
+  {\letbeabt{e_1}{x}{e_2} \StepsTo \Subst{e_1}{x}{e_2}}
+
+\ldots
+
+\end{mathpar}

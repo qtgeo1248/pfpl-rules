@@ -1,0 +1,12 @@
+\subsection{Syntax}
+
+\begin{synchart}{psf}
+  \TypeSort{} & \tau & \bnfdef & \ldots                           & \ldots                  & \text{everything else} \\
+              &      & \bnfalt & \indtyabt{t}{\tau}               & \indtycst{t}{\tau}      & \text{inductive type} \\
+              &      & \bnfalt & \coityabt{t}{\tau}               & \coitycst{t}{\tau}      & \text{Coinductive type} \\
+  \ExprSort{} & e    & \bnfdef & \ldots                           & \ldots                  & \text{everything else} \\
+              &      & \bnfalt & \indinabt{t}{\tau}{e}            & \sindincst{e}           & \text{constructor} \\
+              &      & \bnfalt & \indrecabt{t}{\tau}{x}{e_1}{e_2} & \indreccst{e}{x}{e_1} & \text{recursor} \\
+              &      & \bnfalt & \coioutabt{t}{\tau}{e}           & \scoioutcst{e}          & \text{recursor} \\
+              &      & \bnfalt & \coigenabt{t}{\tau}{x}{e_1}{e_2} & \coigencst{e}{x}{e_1}   & \text{generator}
+\end{synchart}

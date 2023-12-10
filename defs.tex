@@ -1,0 +1,89 @@
+% ULC
+\newcommand{\isvar}[1]{{#1}\,\textsf{var}}
+\newcommand{\istm}[1]{{#1}\,\textsf{tm}}
+\newcommand{\sz}[2]{\OpABT{\textsf{size}}{#1,#2}}
+\newcommand{\IsSubst}[4]{\kw{subst}(#1,#2,#3,#4)}
+\newcommand{\alphaequiv}{\mathrel{\equiv_\alpha}}
+\newcommand{\isalpha}[2]{{#1}\alphaequiv{#2}}
+\newcommand{\betaequiv}{\mathrel{\equiv_\beta}}
+\newcommand{\isbeta}[2]{{#1}\betaequiv{#2}}
+\newcommand{\betastep}{\longmapsto_\beta}
+\newcommand{\isnorm}[2]{#1\;\kw{norm}\;#2}
+\newcommand{\isnormap}[2]{#1\;\kw{norm}^\circ\;#2}
+
+% E
+\newcommand{\LangE}{\Lang{E}}
+
+% PSF
+\newcommand{\LangPSF}{\Lang{PSF}}
+\newcommand{\intro}{\textsc{-I}}
+\newcommand{\elim}{\textsc{-E}}
+
+% Inductive/Coinductive Types
+\renewcommand{\indtyabt}[2]{\OpABT{\kw{ind}}{\AbsABT{#1}{#2}}}
+\renewcommand{\indreccst}[3]{\OpABT{\kw{rec}}{#1;\AbsABT{#2}{#3}}}
+\renewcommand{\coityabt}[2]{\OpABT{\kw{coi}}{\AbsABT{#1}{#2}}}
+\renewcommand{\coigencst}[3]{\OpABT{\kw{gen}}{#1;\AbsABT{#2}{#3}}}
+
+% KPCF
+\newcommand{\StackSort}{\Sort{Stack}}
+\newcommand{\StateSort}{\Sort{State}}
+\newcommand{\FrameSort}{\Sort{Frame}}
+\newcommand{\StackFrame}[2]{\ConsStack{#2}{#1}}
+\DeclareDocumentCommand{\CRetM}{m m m m}{\RState{\CRet{#1}{#2}}{#3}{#4}}
+\DeclareDocumentCommand{\CEvalM}{m m m m}{\RState{\CEval{#1}{#2}}{#3}{#4}}
+\DeclareDocumentCommand{\CRaiseM}{m m m m}{\RState{\CRaise{#1}{#2}}{#3}{#4}}
+\newcommand{\proves}{\vdash}
+\newcommand{\ctx}{\Gamma}
+\newcommand{\typeJ}[3]{#1 \proves \IsOf{#2}{#3}}
+\newcommand{\typeJC}[2]{\typeJ{\ctx}{#1}{#2}}
+\newcommand{\eTypeJ}[3]{#1 \proves \IsOfComp{#2}{#3}}
+\newcommand{\eTypeJC}[2]{\eTypeJ{\ctx}{#1}{#2}}
+
+% Modernized Algol
+\newcommand{\RSubIOf}[3]{{#1}\ensuremath{_{#2}}-\ensuremath{#3}}
+\newcommand{\RIntroOf}[1]{\ensuremath{#1}-I}
+\newcommand{\RIntroIOf}[2]{\ensuremath{#2}-I\ensuremath{_{#1}}}
+\newcommand{\RElimOf}[1]{\ensuremath{#1}-E}
+\newcommand{\RElimIOf}[2]{\ensuremath{#2}-E\ensuremath{_{#1}}}
+\newcommand{\RDynOf}[1]{D-\ensuremath{#1}}
+\newcommand{\RDynIOf}[2]{D\ensuremath{_{#1}}-\ensuremath{#2}}
+\newcommand{\RValOf}[1]{Val-\ensuremath{#1}}
+\newcommand{\RValIOf}[2]{Val\ensuremath{_{#1}}-\ensuremath{#2}}
+\newcommand{\ROkOf}[1]{Ok-\ensuremath{#1}}
+\newcommand{\ROkIOf}[2]{Ok\ensuremath{_{#1}}-\ensuremath{#2}}
+\newcommand{\RCmdOf}[1]{\ensuremath{#1}-c}
+\newcommand{\RCmdIOf}[2]{\ensuremath{#2}-C\ensuremath{_{#1}}}
+
+\DeclareDocumentCommand{\FrameDcl}{m}{\OpInst{\kw{dcl}}{#1}}
+\DeclareDocumentCommand{\FrameBnd}{m m}{\seqcmdabt{\text{--}}{#1}{#2}}
+
+\newcommand{\retcst}[1]{\kw{ret}(#1)}
+
+% Exceptions
+\newcommand{\exntyabt}{\kw{exn}}
+\newcommand{\clsoutabt}[2]{\OpABT{\OpInst{\kw{out}}{#1}}{#2}}
+\newcommand{\clsfy}[2]{\OpABT{\kw{clsfy}}{#1;#2}}
+\newcommand{\dclsfy}[2]{\OpABT{\kw{dclsfy}}{#1;#2}}
+\newcommand{\bndow}[4]{\OpABT{\kw{bndow}}{#1;\AbsABT{#2}{#3};\AbsABT{#2}{#4}}}
+\newcommand{\match}[5]{\OpABT{\OpInst{\kw{match}}{#1}}{#2;\AbsABT{#3}{#4};#5}}
+\newcommand{\CState}[2]{\mathop{\nu}{#2}\,\braces{\,{#1}\,}}
+\renewcommand{\newclsabt}[1]{\OpInst{\kw{newcls}}{#1}}
+\renewcommand{\noneexabt}{\kw{Nothing}}
+\renewcommand{\someexabt}[1]{\kw{Just} \cdot #1}
+
+% Concurrent Algol
+\renewcommand{\atprocabt}[2]{\OpABT{\OpInst{\kw{run}}{#1}}{#2}}
+\renewcommand{\atproccst}[2]{\atprocabt{#1}{#2}}
+\newcommand{\newchncmdabt}[3]{\OpABT{\OpInst{\kw{newchan}}{#2}}{\AbsABT{#1}{#3}}}
+\newcommand{\newchncmdcst}[3]{\newchncmdabt{#1}{#2}{#3}}
+\newcommand{\actionabt}[2]{\vdash_{#2} \IsAct{#1}}
+\newcommand{\jse}[4]{#1 \vdash_{#2} \IsOf{#3}{#4}}
+\newcommand{\jsm}[4]{#1 \vdash_{#2} \IsOfM{#3}{#4}}
+\newcommand{\jsp}[2]{\Gamma \vdash_{#1} \IsProc{#2}}
+\newcommand{\jspc}[3]{#1 \vdash_{#2} \IsProc{#3}}
+\newcommand{\jspeq}[2]{\StrCong{#1}{#2}}
+\newcommand{\jeval}[2]{\IsVal[#2]{#1}}
+\newcommand{\jestep}[3]{#1 \StepsTo[#2] #3}
+\newcommand{\jmstepp}[4]{#1 \underset{#3}{\overset{#2}{\Rightarrow}} #4 }
+\newcommand{\jpstepp}[4]{#1 \underset{#3}{\overset{#2}{\mapsto}} #4}

@@ -1,0 +1,15 @@
+\subsection{Syntax}
+
+\begin{synchart}{e}
+  \TypeSort     & \tau & \bnfdef & \numtyabt              & \numtycst              & \text{numbers} \\
+                &      & \bnfalt & \strtyabt              & \strtycst              & \text{strings} \\
+  \\
+  \ExprSort     & e    & \bnfdef & x                      & x                      & \text{variable} \\
+                &      & \bnfalt & \numabt{n}             & \numcst{n}             & \text{numeral} \\
+                &      & \bnfalt & \strabt{s}             & \strcst{s}             & \text{literal} \\
+                &      & \bnfalt & \plusabt{e_1}{e_2}     & \pluscst{e_1}{e_2}     & \text{addition} \\
+                &      & \bnfalt & \timesabt{e_1}{e_2}    & \timescst{e_1}{e_2}    & \text{multiplication} \\
+                &      & \bnfalt & \catabt{e_1}{e_2}      &                        & \text{concatenation} \\
+                &      & \bnfalt & \lenabt{e}             & \lencst{e}             & \text{length} \\
+                &      & \bnfalt & \letbeabt{e_1}{x}{e_2} & \letbecst{e_1}{x}{e_2} & \text{definition}
+\end{synchart}

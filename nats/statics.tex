@@ -1,0 +1,22 @@
+\subsection{Statics}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+
+\Infer[$\nattyabt \intro_1$]{\strut}{\typeJ{\Gamma}{\zeroabt}{\nattyabt}}
+
+
+\Infer[$\nattyabt \intro_2$]
+  {\typeJ{\Gamma}{e}{\nattyabt}}
+  {\typeJ{\Gamma}{\succabt{e}}{\nattyabt}}
+
+
+\Infer[$\nattyabt \elim$]
+  {
+    \typeJ{\Gamma}{e}{\nattyabt} \\
+    \typeJ{\Gamma}{e_0}{\tau} \\
+    \typeJ{\Gamma, \IsOf{x}{\tau}}{e_1}{\tau}
+  }
+  {\typeJ{\Gamma}{\natiterabt{\tau}{e}{e_0}{x}{e_1}}{\tau}}
+
+\end{mathpar}

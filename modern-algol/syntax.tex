@@ -1,0 +1,15 @@
+\subsection{Syntax}
+
+\begin{synchart}{syn:free-ma}
+  \TypeSort     & \tau   & \bnfdef & \cdots                     & \cdots                     & \text{everything else}        \\
+                &        & \bnfalt & \gcmdtycst{\tau}           & \gcmdtycst{\tau}           & \text{command types}          \\
+  \\
+  \ExprSort     & e      & \bnfdef & \cdots                     & \cdots                     & \text{everything else}        \\
+                &        & \bnfalt & \cmdabt{m}                 & \cmdcst{m}                 & \text{encapsulated commands}  \\
+  \\
+  \Sort{Cmd}    & m      & \bnfdef & \retcmdabt{e}              & \retcmdcst{e}              & \text{return} \\
+                &        & \bnfalt & \seqcmdabt{e}{x}{m}        & \seqcmdcst{e}{x}{m}        & \text{bind command} \\
+                &        & \bnfalt & \tnewvarabt{\tau}{e}{a}{m} & \tnewvarcst{\tau}{e}{a}{m} & \text{declare new assignable} \\
+                &        & \bnfalt & \getvarabt{a}              & \getvarcst{a}              & \text{get variable} \\
+                &        & \bnfalt & \setvarabt{a}{e}           & \setvarcst{a}{e}           & \text{set variable}
+\end{synchart}

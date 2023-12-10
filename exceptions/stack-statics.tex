@@ -1,0 +1,29 @@
+\subsection{Statics}
+
+\subsubsection{Expressions}
+$\Gamma \entails \IsOf{e}{\tau}$ have the same rules as before.
+
+\subsubsection{Stacks}
+
+\boxed{\IsOfStack{k}{\tau}}
+\begin{mathpar}
+
+\Infer
+  {\IsOfStack{k}{\tau}}
+  {\IsOfStack{\ConsStack{\raiseabt{}{\text{--}}}{k}}{\exntyabt}}
+
+\Infer
+  {\IsOfStack{k}{\tau} \\ \IsOf{x}{\exntyabt} \entails \IsOf{e_1}{\tau}}
+  {\IsOfStack{\ConsStack{\handleabt{\text{--}}{x}{e_1}}{k}}{\tau}}
+
+\end{mathpar}
+
+\subsubsection{States}
+Most are the same as in Continuations, but with one more rule
+
+\boxed{\IsOK{s}}
+\begin{mathpar}
+\Infer
+  {\IsOfStack{k}{\tau} \\ \IsOf{v}{\exntyabt} \\ \IsVal{v}}
+  {\IsOK{\CRaise{k}{v}}}
+\end{mathpar}

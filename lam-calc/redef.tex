@@ -1,0 +1,32 @@
+\subsection{Translations}
+
+\subsubsection{Booleans}
+
+\begin{mathpar}
+  {\bf T} \isdef \ulamabt{x}{\ulamabt{y}{x}}
+
+  {\bf F} \isdef \ulamabt{x}{\ulamabt{y}{y}}
+
+  {\bf if}(M, M_0, M_1) \isdef \uappabt{\uappabt{M}{M_0}}{M_1}
+\end{mathpar}
+
+\subsubsection{Tuples}
+
+\begin{mathpar}
+  \langle M_0, M_1 \rangle \isdef \ulamabt{b}{\uappabt{\uappabt{b}{M_1}}{M_2}}
+
+  M \cdot l \isdef \uappabt{M}{{\bf T}}
+
+  M \cdot r \isdef \uappabt{M}{{\bf F}}
+\end{mathpar}
+
+\subsubsection{Naturals}
+\begin{mathpar}
+  {\bf 0} \isdef \ulamabt{x}{x}
+
+  {\bf succ}(M) \isdef \langle {\bf F}, M \rangle
+
+  \isbeta{{\bf ifz}({\bf 0}, M_0, M_1)}{M_0}
+
+  \isbeta{{\bf ifz}({\bf succ}(M), M_0, M_1)}{\uappabt{M_1}{M}}
+\end{mathpar}

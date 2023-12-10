@@ -1,0 +1,54 @@
+\subsection{Statics}
+
+\subsubsection{Expressions}
+
+\boxed{\jse{\Gamma}{\Sigma}{e}{\tau}}
+\begin{mathpar}
+\Infer
+  {\strut}
+  {\jse{\Gamma}{\Sigma}{\clsabt{c}}{\clstyabt{\tau}}}
+
+\Infer
+  {\jse{\Gamma}{\Sigma}{e_1}{\clstycst{\tau}} \\ \jse{\Gamma}{\Sigma}{e_2}{\tau}}
+  {\jse{\Gamma}{\Sigma}{\clsfy{e_1}{e_2}}{\clsfdtyabt}}
+
+\Infer
+  {\jse{\Gamma}{\Sigma}{e_1}{\clsfdtyabt} \\ \jse{\Gamma}{\Sigma}{e_2}{\clstycst{\tau}}}
+  {\jse{\Gamma}{\Sigma}{\dclsfy{e_1}{e_2}}{\opttycst{\tau}}}
+
+\Infer
+  {\jse{\Gamma}{\Sigma, \Has{c}{\tau}}{e}{\tau}}
+  {\jse{\Gamma}{\Sigma, \Has{c}{\tau}}{\clsinabt{c}{e}}{\clsfdtyabt}}
+
+\Infer
+  {\jse{\Gamma}{\Sigma, \Has{c}{\tau}}{e}{\clsfdtyabt}}
+  {\jse{\Gamma}{\Sigma, \Has{c}{\tau}}{\clsoutabt{c}{e}}{\opttycst{\tau}}}
+
+\Infer
+  {
+    \jse{\Gamma}{\Sigma, \Has{c}{\tau}}{e}{\clsfdtyabt} \\
+    \jse{\Gamma, \IsOf{x}{\tau}}{\Sigma, \Has{c}{\tau}}{e_1}{\rho} \\
+    \jse{\Gamma}{\Sigma, \Has{c}{\tau}}{e_2}{\rho}
+  }
+  {\jse{\Gamma}{\Sigma, \Has{c}{\tau}}{\match{c}{e}{x}{e_1}{e_2}}{\rho}}
+\end{mathpar}
+
+\subsubsection{Commands}
+\boxed{\jsm{\Gamma}{\Sigma}{m}{\tau}}
+\begin{mathpar}
+\Infer
+  {\strut}
+  {\jsm{\Gamma}{\Sigma}{\newclsabt{\tau}}{\clstycst{\tau}}}
+
+\Infer
+  {\jsm{\Gamma}{\Sigma}{e}{\clsfdtyabt}}
+  {\jsm{\Gamma}{\Sigma}{\raiseabt{\tau}{e}}{\tau}}
+
+\Infer
+  {
+    \jsm{\Gamma}{\Sigma}{e}{\cmdtyabt{\tau}} \\
+    \jsm{\Gamma, \IsOf{x}{\tau}}{\Sigma}{m_1}{\rho} \\
+    \jsm{\Gamma, \IsOf{x}{\clsfdtyabt}}{\Sigma}{m_2}{\rho} \\
+  }
+  {\jsm{\Gamma}{\Sigma}{\bndow{e}{x}{m_1}{m_2}}{\rho}}
+\end{mathpar}

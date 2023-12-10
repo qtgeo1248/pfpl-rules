@@ -1,0 +1,15 @@
+\subsection{Statics}
+
+\boxed{\Gamma \entails \IsOf{e}{\tau}}
+\begin{mathpar}
+\Infer
+  {\Gamma \entails \IsOf{e}{\exntyabt}}
+  {\Gamma \entails \IsOf{\raiseabt{}{e}}{\tau}}
+
+\Infer
+  {
+    \Gamma \entails \IsOf{e}{\tau} \\
+    \Gamma, \IsOf{x}{\exntyabt} \entails \IsOf{e_1}{\tau}
+  }
+  {\Gamma \entails \IsOf{\handleabt{e}{x}{e_1}}{\tau}}
+\end{mathpar}

@@ -1,0 +1,20 @@
+\subsection{Syntax}
+
+\begin{synchart}{ca}
+  \TypeSort  & \tau & \bnfdef & \dots                     & \dots           & \text{everything else} \\
+             &      & \bnfalt & \clsfdtyabt               &                 & \text{classified} \\
+             &      &         & \clstyabt{\tau}           & \clstycst{\tau} & \text{class} \\
+  \\
+  \ExprSort  & e    & \bnfdef & \dots                     & \dots           & \text{everything else} \\
+             &      &         & \clsabt{c}                & \clscst{c}      & \text{class reference} \\
+             &      &         & \clsfy{e_1}{e_2}          &                 & \text{classify} \\
+             &      &         & \dclsfy{e_1}{e_2}         &                 & \text{declassify} \\
+             &      &         & \clsinabt{c}{e}           & \clsincst{c}{e} & \text{inject into class} \\
+             &      &         & \clsoutabt{c}{e}          &                 & \text{checking class} \\
+             &      &         & \match{c}{e}{x}{e_1}{e_2} &                 & \text{matching exception} \\
+  \\
+  \Sort{Cmd} & m    & \bnfdef & \dots                     &                 & \text{everything else} \\
+             &      &         & \newclsabt{\tau}          &                 & \text{new class} \\
+             &      &         & \raiseabt{\rho}{e}        &                 & \text{raise} \\
+             &      &         & \bndow{e}{x}{m_1}{m_2}    &                 & \text{try} \\
+\end{synchart}

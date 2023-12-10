@@ -1,0 +1,11 @@
+\subsection{Syntax}
+
+We do not define how to create an exception at this point in the course.
+\begin{synchart}{ca}
+  \TypeSort  & \tau & \bnfdef & \dots                     & \dots                 & \text{everything else} \\
+             &      & \bnfalt & \exntyabt                 &                       & \text{exception} \\
+  \\
+  \ExprSort  & e    & \bnfdef & \dots                     & \dots                 & \text{everything else} \\
+             &      &         & \raiseabt{\rho}{e}        &                       & \text{raise} \\
+             &      &         & \handleabt{e}{x}{e_1}     & \handlecst{e}{x}{e_1} & \text{handle}
+\end{synchart}

@@ -1,0 +1,76 @@
+\subsection{Statics}
+
+\begin{mathpar}
+  \Infer[Var]
+    {\strut}
+    {\Gamma, \IsOf{x}{\tau} \entails \IsOf{x}{\tau}}
+\end{mathpar}
+
+\subsubsection{Functions}
+
+\begin{mathpar}
+\Infer[$\arrtycst{}{}\intro$]
+  {\Gamma, \IsOf{x}{\tau_1} \entails \IsOf{e_2}{\tau_2}}
+  {\Gamma \entails \IsOf{\lamabt{\tau_1}{x}{e_2}}{\arrtycst{\tau_1}{\tau_2}}}
+
+\Infer[$\arrtycst{}{}\elim$]
+  {
+    \Gamma \entails \IsOf{e}{\arrtycst{\tau_1}{\tau_2}} \\
+    \Gamma \entails \IsOf{e_1}{\tau_1}
+  }
+  {\Gamma \entails \IsOf{\appabt{e}{e_1}}{\tau_2}}
+\end{mathpar}
+
+\subsubsection{Products}
+
+\begin{mathpar}
+
+\Infer[$\unittycst\intro$]
+  {\strut}
+  {\Gamma \entails \IsOf{\unitexabt}{\unittycst}}
+
+
+\Infer[$\prodtycst{}{}\intro$]
+  {
+    \Gamma \entails \IsOf{e_1}{\tau_1} \\
+    \Gamma \entails \IsOf{e_2}{\tau_2}
+  }
+  {\Gamma \entails \IsOf{\pairexabt{e_1}{e_2}}{\prodtycst{\tau_1}{\tau_2}}}
+
+
+\Infer[$\prodtycst{}{}\elim_1$]
+  {\Gamma \entails \IsOf{e}{\prodtycst{\tau_1}{\tau_2}}}
+  {\Gamma \entails \IsOf{\fstexabt{e}}{\tau_1}}
+
+
+\Infer[$\prodtycst{}{}\elim_2$]
+  {\Gamma \entails \IsOf{e}{\prodtycst{\tau_1}{\tau_2}}}
+  {\Gamma \entails \IsOf{\sndexabt{e}}{\tau_2}}
+\end{mathpar}
+
+\subsubsection{Sums}
+
+\begin{mathpar}
+\Infer[$\voidtycst\elim$]
+  {\Gamma \entails \IsOf{e}{\voidtycst}}
+  {\Gamma \entails \IsOf{\absurdexabt{\tau}{e}}{\tau}}
+
+
+\Infer[$\sumtycst{}{}\intro_1$]
+  {\Gamma \entails \IsOf{e}{\tau_1}}
+  {\Gamma \entails \IsOf{\inlexabt{\tau_1}{\tau_2}{e}}{\sumtycst{\tau_1}{\tau_2}}}
+
+
+\Infer[$\sumtycst{}{}\intro_2$]
+  {\Gamma \entails \IsOf{e}{\tau_2}}
+  {\Gamma \entails \IsOf{\inrexabt{\tau_1}{\tau_2}{e}}{\sumtycst{\tau_1}{\tau_2}}}
+
+
+\Infer[$\sumtycst{}{}\elim$]
+  {
+    \Gamma \entails \IsOf{e}{\sumtycst{\tau_1}{\tau_2}} \\
+    \Gamma, \IsOf{x_1}{\tau_1} \entails \IsOf{e_1}{\tau} \\
+    \Gamma, \IsOf{x_2}{\tau_2} \entails \IsOf{e_2}{\tau}
+  }
+  {\Gamma \entails \IsOf{\caseexabt{e}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2}}{\tau}}
+\end{mathpar}

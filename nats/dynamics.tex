@@ -1,0 +1,28 @@
+\subsection{Dynamics}
+
+\boxed{\IsVal{v}}
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+
+\Infer[Val$_1$-$\nattyabt$]{\strut}{\IsVal{\zeroabt}}
+
+
+\Infer[Val$_2$-$\nattyabt$]{\IsVal{v}}{\IsVal{\succabt{v}}}
+
+
+\Infer[D$_1$-$\nattyabt$]{e \StepsTo e'}{\succabt{e} \StepsTo \succabt{e'}}
+
+
+\Infer[D$_2$-$\nattyabt$]{e \StepsTo e'}
+  {\natiterabt{\tau}{e}{e_0}{x}{e_1} \StepsTo \natiterabt{\tau}{e'}{e_0}{x}{e_1}}
+
+
+\Infer[D$_3$-$\nattyabt$]{\strut}
+  {\natiterabt{\tau}{\zeroabt}{e_0}{x}{e_1} \StepsTo e_0}
+
+
+\Infer[D$_3$-$\nattyabt$]{\IsVal{v}}
+  {\natiterabt{\tau}{\succabt{v}}{e_0}{x}{e_1} \StepsTo
+    \Subst{\natiterabt{\tau}{v}{e_0}{x}{e_1}}{x}{e_1}}
+
+\end{mathpar}

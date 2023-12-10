@@ -1,0 +1,32 @@
+\subsection{Statics}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+
+\Infer{\strut}{\typeJ{\Gamma, \IsOf{x}{\tau}}{x}{\tau}}
+
+\Infer{\strut}{\typeJ{\Gamma}{\numabt{n}}{\numtyabt}}
+
+\Infer{\strut}{\typeJ{\Gamma}{\strabt{s}}{\strtyabt}}
+
+\Infer
+  {\typeJ{\Gamma}{e_1}{\numtyabt} \\ \typeJ{\Gamma}{e_2}{\numtyabt}}
+  {\typeJ{\Gamma}{\plusabt{e_1}{e_2}}{\numtyabt}}
+
+\Infer
+  {\typeJ{\Gamma}{e_1}{\numtyabt} \\ \typeJ{\Gamma}{e_2}{\numtyabt}}
+  {\typeJ{\Gamma}{\timesabt{e_1}{e_2}}{\numtyabt}}
+
+\Infer
+  {\typeJ{\Gamma}{e_1}{\strtyabt} \\ \typeJ{\Gamma}{e_2}{\strtyabt}}
+  {\typeJ{\Gamma}{\catabt{e_1}{e_2}}{\strtyabt}}
+
+\Infer
+  {\typeJ{\Gamma}{e}{\strtyabt}}
+  {\typeJ{\Gamma}{\lenabt{e}}{\numtyabt}}
+
+\Infer
+  {\typeJ{\Gamma}{e_1}{\tau_1} \\ \typeJ{\Gamma, \IsOf{x}{\tau_1}}{e_2}{\tau_2}}
+  {\typeJ{\Gamma}{\letbeabt{e_1}{x}{e_2}}{\tau_2}}
+
+\end{mathpar}

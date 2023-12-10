@@ -1,0 +1,38 @@
+\subsection{Equivalence}
+
+\boxed{M \alphaequiv N}
+\begin{mathpar}
+
+\Infer{\strut}{\isalpha{M}{M}}
+
+\Infer{\isalpha{M}{M'}}{\isalpha{M'}{M}}
+
+\Infer{\isalpha{M}{M'} \\ \isalpha{M'}{M''}}{\isalpha{M}{M''}}
+
+\Infer{\isalpha{M_1}{M_1'} \\ \isalpha{M_2}{M_2'}}
+  {\isalpha{\uappabt{M_1}{M_2}}{\uappabt{M_1'}{M_2'}}}
+
+\Infer{\isalpha{M}{M'}}{\isalpha{\ulamabt{x}{M_2}}{\ulamabt{x}{M'}}}
+
+\Infer{\IsSubst{x'}{x}{M}{M'} \\ \IsntFree{x'}{M}}
+  {\isalpha{\ulamabt{x}{M}}{\ulamabt{x'}{M'}}}
+
+\end{mathpar}
+
+\boxed{\isbeta{M}{N}}
+\begin{mathpar}
+
+\Infer{\strut}{\isbeta{M}{M}}
+
+\Infer{\isbeta{M}{M'}}{\isbeta{M'}{M}}
+
+\Infer{\isbeta{M}{M'} \\ \isbeta{M'}{M''}}{\isbeta{M}{M''}}
+
+\Infer{\isbeta{M_1}{M_1'} \\ \isbeta{M_2}{M_2'}}
+  {\isbeta{\uappabt{M_1}{M_2}}{\uappabt{M_1'}{M_2'}}}
+
+\Infer{\isbeta{M}{M'}}{\isbeta{\ulamabt{x}{M_2}}{\ulamabt{x}{M'}}}
+
+\Infer{\strut}{\isalpha{\uappabt{\ulamabt{x}{N}}{M}}{\Subst{M}{x}{N}}}
+
+\end{mathpar}

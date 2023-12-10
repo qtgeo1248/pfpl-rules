@@ -1,0 +1,98 @@
+\subsection{Dynamics}
+
+\subsubsection{Expressions}
+Many ``stepping" rules have been omitted.
+
+\boxed{\IsVal[\Sigma]{e}}
+\boxed{e \StepsTo[\Sigma] e'}
+\begin{mathpar}
+\Infer{\strut}{\IsVal[\Sigma, \Has{c}{\tau}]{\clsabt{c}}}
+
+\Infer
+  {e_1 \StepsTo[\Sigma] e_1'}
+  {\clsfy{e_1}{e_2} \StepsTo[\Sigma] \clsfy{e_1'}{e_2}}
+
+\Infer
+  {\IsVal[\Sigma]{v_1} \\ e_2 \StepsTo[\Sigma] e_2'}
+  {\clsfy{v_1}{e_2} \StepsTo[\Sigma] \clsfy{v_1}{e_2'}}
+
+\Infer
+  {\IsVal[\Sigma]{v_2}}
+  {\clsfy{\clsabt{c}}{v_2} \StepsTo[\Sigma, \Has{c}{\tau}] \clsinabt{c}{v_2}}
+
+\Infer
+  {e_1 \StepsTo[\Sigma] e_1'}
+  {\dclsfy{e_1}{e_2} \StepsTo[\Sigma] \dclsfy{e_1'}{e_2}}
+
+\Infer
+  {\IsVal[\Sigma]{v_1} \\ e_2 \StepsTo[\Sigma] e_2'}
+  {\dclsfy{v_1}{e_2} \StepsTo[\Sigma] \dclsfy{v_1}{e_2'}}
+
+\Infer
+  {\IsVal[\Sigma]{v_1}}
+  {\dclsfy{v_1}{\clsabt{c}} \StepsTo[\Sigma, \Has{c}{\tau}] \clsoutabt{c}{v_1}}
+\\
+\Infer
+  {\IsVal[\Sigma, \Has{c}{\tau}]{v}}
+  {\IsVal[\Sigma, \Has{c}{\tau}]{\clsinabt{c}{v}}}
+
+\Infer
+  {\IsVal[\Sigma, \Has{c}{\tau}]{v}}
+  {\clsoutabt{c}{\clsinabt{c}{v}} \StepsTo[\Sigma, \Has{c}{\tau}] \someexcst{v}}
+
+\Infer
+  {\IsVal[\Sigma, \Has{c}{\tau}]{v} \\ c \neq c'}
+  {\clsoutabt{c}{\clsinabt{c'}{v}} \StepsTo[\Sigma, \Has{c}{\tau}] \noneexabt}
+
+\Infer
+  {\match{c}{e}{x}{e_1}{e_2}}
+  {\match{c}{e}{x}{e_1}{e_2} \StepsTo[\Sigma, \Has{c}{\tau}]
+    \kw{case}\;\clsoutabt{c}{e}\;\{ \someexabt{x} \hookrightarrow e_1 \mid \noneexabt \hookrightarrow e_2\}}
+\end{mathpar}
+
+\subsubsection{Commands}
+
+\boxed{\IsFinal{\CState{m}{\Sigma}}}
+\begin{mathpar}
+\Infer
+  {\IsVal[\Sigma]{v}}
+  {\CState{\retcmdabt{v}}{\Sigma}}
+
+\Infer
+  {\IsVal[\Sigma]{v}}
+  {\CState{\raisecmdabt{}{v}}{\Sigma}}
+\end{mathpar}
+
+What happens when an exception is raised for the other commands has been omitted.
+
+\boxed{\CState{m}{\Sigma} \StepsTo \CState{m'}{\Sigma'}}
+\begin{mathpar}
+\Infer
+  {\strut}
+  {\CState{\newclsabt{\tau}}{\Sigma} \StepsTo
+    \CState{\retcmdabt{\clsabt{c}}}{\Sigma, \Has{c}{\tau}}}
+
+\Infer
+  {e \StepsTo[\Sigma] e'}
+  {\CState{\raiseabt{}{e}}{\Sigma} \StepsTo \CState{\raiseabt{}{e'}}{\Sigma}}
+
+\Infer
+  {e \StepsTo[\Sigma] e'}
+  {\CState{\bndow{e}{x}{m_1}{m_2}}{\Sigma} \StepsTo
+    \CState{\bndow{e'}{x}{m_1}{m_2}}{\Sigma}}
+
+\Infer
+  {\CState{m}{\Sigma} \StepsTo \CState{m'}{\Sigma'}}
+  {\CState{\bndow{\cmdabt{m}}{x}{m_1}{m_2}}{\Sigma} \StepsTo
+    \CState{\bndow{\cmdabt{m'}}{x}{m_1}{m_2}}{\Sigma'}}
+
+\Infer
+  {\IsVal[\Sigma]{v}}
+  {\CState{\bndow{\cmdabt{\retcmdabt{v}}}{x}{m_1}{m_2}}{\Sigma} \StepsTo
+    \CState{\Subst{v}{x}{m_1}}{\Sigma}}
+
+\Infer
+  {\IsVal[\Sigma]{v}}
+  {\CState{\bndow{\cmdabt{\raiseabt{}{v}}}{x}{m_1}{m_2}}{\Sigma} \StepsTo
+    \CState{\Subst{v}{x}{m_2}}{\Sigma}}
+\end{mathpar}

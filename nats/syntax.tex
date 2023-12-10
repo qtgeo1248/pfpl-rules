@@ -1,0 +1,11 @@
+\subsection{Syntax}
+
+\begin{synchart}{e}
+  \TypeSort     & \tau & \bnfdef & \ldots                            & \ldots                            & \text{everything else} \\
+                &      & \bnfalt & \nattyabt                         & \nattycst                         & \text{natural numbers} \\
+  \\
+  \ExprSort     & e    & \bnfdef & \ldots                            & \ldots                            & \text{everything else} \\
+                &      & \bnfalt & \zeroabt                          & \zerocst                          & \text{zero} \\
+                &      & \bnfalt & \succabt{e}                       & \succcst{s}                       & \text{successor} \\
+                &      & \bnfalt & \natiterabt{\tau}{e}{e_0}{x}{e_1} & \natitercst{\tau}{e}{e_0}{x}{e_1} & \text{recursor}
+\end{synchart}

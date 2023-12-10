@@ -1,0 +1,34 @@
+\subsection{Dynamics}
+Finality and initial is the same as before, except with one more rule:
+\boxed{\IsFinal{s}}
+\begin{mathpar}
+\Infer{\strut}{\IsFinal{\CRaise{\epsilon}{v}}}
+\end{mathpar}
+
+
+For all frames that aren't the \kw{try} frame, exceptions will walk up the stack,
+until it encounters a \kw{try}.
+
+\boxed{s \StepsTo s'}
+\begin{mathpar}
+
+\Infer{\strut}{\CEval{k}{\raiseabt{}{e}} \StepsTo 
+  \CEval{\ConsStack{\raiseabt{}{\text{--}}}{k}}{e}}
+
+\Infer{\strut}{\CRet{\ConsStack{\raiseabt{}{\text{--}}}{k}}{v} \StepsTo \CRaise{k}{v}}
+
+\Infer{\strut}{\CRaise{\ConsStack{\raiseabt{}{\text{--}}}{k}}{v} \StepsTo \CRaise{k}{v}}
+
+\Infer{\strut}{\CEval{k}{\handleabt{e}{x}{e_1}} \StepsTo
+  \CEval{\ConsStack{\handleabt{\text{--}}{x}{e_1}}{k}}{e}}
+
+\Infer{\strut}{\CRet{\ConsStack{\handleabt{\text{--}}{x}{e_1}}{k}}{v} \StepsTo
+  \CRet{k}{v}}
+
+\Infer{\strut}{\CRaise{\ConsStack{\handleabt{\text{--}}{x}{e_1}}{k}}{v} \StepsTo
+  \CEval{k}{\Subst{v}{x}{e_1}}}
+
+\Infer
+  {f \neq \handleabt{\text{--}}{x}{e_1}}
+  {\CRaise{\ConsStack{f}{k}}{v} \StepsTo \CRaise{k}{v}}
+\end{mathpar}

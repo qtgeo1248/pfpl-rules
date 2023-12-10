@@ -1,0 +1,35 @@
+\subsection{Statics}
+
+\boxed{\IsPolynom{t}{\tau}}
+\begin{mathpar}
+
+\Infer{\strut}{\IsPolynom{t}{t}}
+
+\Infer{\strut}{\IsPolynom{t}{\unittyabt}}
+
+\Infer{\strut}{\IsPolynom{t}{\voidtyabt}}
+
+\Infer
+  {\IsPolynom{t}{\tau_1} \\ \IsPolynom{t}{\tau_2}}
+  {\IsPolynom{t}{\prodtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\IsPolynom{t}{\tau_1} \\ \IsPolynom{t}{\tau_2}}
+  {\IsPolynom{t}{\sumtycst{\tau_1}{\tau_2}}}
+
+\end{mathpar}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+
+\Infer[TMap]
+  {
+    \IsPolynom{t}{\tau} \\
+    \typeJ{\Gamma, \IsOf{x}{\rho}}{e'}{\rho'} \\ 
+    \typeJ{\Gamma}{e}{\Subst{p}{t}{\tau}}
+  }
+  {\typeJ{\Gamma}{\genexabt{t}{\tau}{x}{e'}{e}}{\Subst{\rho'}{t}{\tau}}}
+
+\end{mathpar}
+$\kw{map}$ essentially applies the mapping function $\ulamabt{x}{e'}$ to places
+of $e$ which should have type $t$.

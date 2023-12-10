@@ -1,0 +1,24 @@
+\subsection{Head Normal Form}
+
+\boxed{M \betastep N}
+\begin{mathpar}
+  \Infer{\strut}{\uappabt{\ulamabt{x}{M}}{M_2} \betastep \Subst{M_2}{x}{M}}
+
+  \Infer{M_1 \betastep N_1}
+    {\uappabt{M_1}{M_2} \betastep \uappabt{N_1}{M_2}}
+\end{mathpar}
+
+\boxed{\isnorm{M}{N}}
+\boxed{\isnormap{M}{N}}
+\begin{mathpar}
+  \Infer{M \betastep M' \\ \isnorm{M'}{N}}{\isnorm{M}{N}}
+
+  \Infer{\isnorm{M}{N}}{\isnorm{\ulamabt{x}{M}}{\ulamabt{x}{N}}}
+
+  \Infer{\isnormap{M}{N}}{\isnorm{M}{N}}
+
+  \Infer{\strut}{\isnormap{x}{x}}
+
+  \Infer{\isnormap{M_1}{N_1} \\ \isnorm{M_2}{N_2}}
+    {\isnormap{\uappabt{M_1}{M_2}}{\uappabt{N_1}{N_2}}}
+\end{mathpar}

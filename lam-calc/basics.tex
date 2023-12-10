@@ -1,0 +1,55 @@
+\subsection{Basics}
+$\IsSubst{M}{x}{N}{P}$ means that $\SubstIs{M}{x}{N}{P}$, but at this point, we
+haven't proven that substitution is unique, so we can't use the equal sign yet.
+
+\boxed{\istm{M}}
+\begin{mathpar}
+
+\Infer{\isvar{x}}{\istm{x}}
+
+\Infer{\istm{M_1} \\ \istm{M_2}}{\istm{\uappabt{M_1}{M_2}}}
+
+\Infer{\isvar{x} \\ \istm{M}}{\istm{\ulamabt{x}{M}}}
+
+\end{mathpar}
+
+\boxed{\IsFree{x}{M}}
+\begin{mathpar}
+
+\Infer{\strut}{\IsFree{x}{x}}
+
+\Infer{\IsFree{x}{M_1}}{\IsFree{x}{\uappabt{M_1}{M_2}}}
+
+\Infer{\IsFree{x}{M_2}}{\IsFree{x}{\uappabt{M_1}{M_2}}}
+
+\Infer{x \neq y \\ \IsFree{x}{M}}{\IsFree{x}{\ulamabt{y}{M}}}
+
+\end{mathpar}
+
+\boxed{\IsSubst{M}{x}{N}{P}}
+\begin{mathpar}
+
+\Infer{\strut}{\IsSubst{M}{x}{x}{M}}
+
+\Infer{x \neq y}{\IsSubst{M}{x}{y}{y}}
+
+\Infer
+  {\IsSubst{M}{x}{N_1}{P_1} \\ \IsSubst{M}{x}{N_2}{P_2}}
+  {\IsSubst{M}{x}{\uappabt{N_1}{N_2}}{\uappabt{P_1}{P_2}}}
+
+\Infer{\strut}{\IsSubst{M}{x}{\ulamabt{x}{N}}{\ulamabt{x}{N}}}
+
+\Infer{x \neq y \\ \IsntFree{y}{M} \\ \IsSubst{M}{x}{N}{P}}
+  {\IsSubst{M}{x}{\ulamabt{y}{N}}{\ulamabt{y}{P}}}
+\end{mathpar}
+
+\boxed{\sz{M}{n}}
+\begin{mathpar}
+
+\Infer{\isvar{x}}{\sz{x}{1}}
+
+\Infer{\sz{M_1}{n_1} \\ \sz{M_2}{n_2}}
+  {\sz{\uappabt{M_1}{M_2}}{n_1 + n_2 + 1}}
+
+\Infer{\isvar{x} \\ \sz{M}{n}}{\sz{\ulamabt{x}{M}}{n + 1}}
+\end{mathpar}

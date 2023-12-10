@@ -1,0 +1,19 @@
+\subsection{Syntax}
+
+We still do not define how to create an exception at this point in the course.
+\begin{synchart}{ca}
+  \TypeSort  & \tau & \bnfdef & \dots                                          & \text{everything else} \\
+             &      & \bnfalt & \exntyabt                                      & \text{exception} \\
+  \\
+  \ExprSort  & e    & \bnfdef & \dots                                          & \text{everything else} \\
+             &      &         & \raiseabt{\rho}{e}                             & \text{raise} \\
+             &      &         & \handleabt{e}{x}{e_1}                          & \text{handle} \\
+  \\
+  \StackSort & k    & \Coloneqq & \EmptyStack                                  & \text{empty stack} \\
+             &      &           & \ConsStack{\raiseabt{}{\text{--}}}{k}        & \text{raise} \\
+             &      &           & \ConsStack{\handleabt{\text{--}}{x}{e_1}}{k} & \text{handle} \\
+  \\
+  \StateSort & s    & \Coloneqq & \CEval{k}{e}                                 & \text{evaluating } e \text{ for stack } k \\
+             &      &           & \CRet{k}{v}                                  & \text{returning } v \text{ to stack } k \\
+             &      &           & \CRaise{k}{v}                                & \text{raising } v \text{ to stack } k
+\end{synchart}

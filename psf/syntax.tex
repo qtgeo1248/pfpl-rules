@@ -1,0 +1,20 @@
+\subsection{Syntax}
+
+\begin{synchart}{psf}
+  \TypeSort{} & \tau & \bnfdef & \arrtyabt{\tau_1}{\tau_2}                           & \arrtycst{\tau_1}{\tau_2}                         & \text{function} \\
+              &      & \bnfalt & \unittyabt                                          & \unittycst                                        & \text{nullary product} \\
+              &      & \bnfalt & \prodtyabt{\tau_1}{\tau_2}                          & \prodtycst{\tau_1}{\tau_2}                        & \text{binary product} \\
+              &      & \bnfalt & \voidtyabt                                          & \voidtycst                                        & \text{nullary sum} \\
+              &      & \bnfalt & \sumtyabt{\tau_1}{\tau_2}                           & \sumtycst{\tau_1}{\tau_2}                         & \text{binary sum} \\
+  \ExprSort{} & e    & \bnfdef & x                                                   & x                                                 & \text{variable} \\
+              &      & \bnfalt & \lamabt{\tau_1}{x}{e_2}                             & \lamcst{\tau_1}{x}{e_2}                           & \text{abstraction} \\
+              &      & \bnfalt & \appabt{e}{e_1}                                     & \appcst{e}{e_1}                                   & \text{application} \\
+              &      & \bnfalt & \unitexabt                                          & \unitexcst                                        & \text{nullary tuple} \\
+              &      & \bnfalt & \pairexabt{e_1}{e_2}                                & \pairexcst{e_1}{e_2}                              & \text{binary tuple} \\
+              &      & \bnfalt & \fstexabt{e}                                        & \fstexcst{e}                                      & \text{left projection} \\
+              &      & \bnfalt & \sndexabt{e}                                        & \sndexcst{e}                                      & \text{right projection} \\
+              &      & \bnfalt & \absurdexabt{\tau}{e}                               & \absurdexcst{\tau}{e}                             & \text{nullary case analysis} \\
+              &      & \bnfalt & \inlexabt{\tau_1}{\tau_2}{e}                        & \inlexcst{\tau_2}{e}                              & \text{left injection} \\
+              &      & \bnfalt & \inrexabt{\tau_1}{\tau_2}{e}                        & \inrexcst{\tau_2}{e}                              & \text{right injection} \\
+              &      & \bnfalt & \caseexabt{e}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2}   & \caseexcst{e}{x_1}{\tau_1}{e_1}{x_2}{\tau_2}{e_2} & \text{binary case analysis} \\
+\end{synchart}

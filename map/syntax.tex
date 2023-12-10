@@ -1,0 +1,10 @@
+\subsection{Syntax}
+
+\begin{synchart}{e}
+  \TypeSort     & \tau & \bnfdef & \ldots                       & \text{everything else} \\
+                &      & \bnfalt & t                            & \text{type variables} \\
+  \\
+  \ExprSort     & e    & \bnfdef & \ldots                       & \text{everything else} \\
+                &      & \bnfalt & \genexabt{t}{\tau}{x}{e'}{e} & \text{map} \\
+\end{synchart}
+

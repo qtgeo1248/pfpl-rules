@@ -1,0 +1,28 @@
+\subsection{Statics}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\subsubsection{Inductive Types}
+\begin{mathpar}
+  
+\Infer
+  {\typeJ{\Gamma}{e}{\Subst{\indtycst{t}{\tau}}{t}{\tau}}}
+  {\typeJ{\Gamma}{\sindincst{e}}{\indtycst{t}{\tau}}}
+
+\Infer
+  {\typeJ{\Gamma}{e}{\indtycst{t}{\tau}} \\ \typeJ{\Gamma, \IsOf{x}{\Subst{\rho}{t}{\tau}}}{e_1}{\rho}}
+  {\typeJ{\Gamma}{\indreccst{e}{x}{e_1}}{\rho}}
+
+\end{mathpar}
+
+\subsubsection{Coinductive Types}
+\begin{mathpar}
+  
+\Infer
+  {\typeJ{\Gamma}{e}{\rho} \\ \typeJ{\Gamma, \IsOf{x}{\rho}}{e_1}{\Subst{\rho}{t}{\tau}}}
+  {\typeJ{\Gamma}{\coigencst{e}{x}{e_1}}{\coitycst{t}{\tau}}}
+
+\Infer
+  {\typeJ{\Gamma}{e}{\coitycst{t}{\tau}}}
+  {\typeJ{\Gamma}{\scoioutcst{e}}{\Subst{\coitycst{t}{\tau}}{t}{\tau}}}
+
+\end{mathpar}
