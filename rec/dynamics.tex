@@ -1,12 +1,36 @@
 \subsection{Dynamics}
+There is a big difference between by-value and by-name semantics in inductive and
+coinductive types.
 
 \boxed{\IsVal{v}}
 \boxed{e \StepsTo e'}
 \subsubsection{Inductive Types}
+When we recurse in $\indreccst{\sindincst{e}}{x}{e_1}$, $x$ is the result of
+the recursive call in all the recursive instances in $e$.
 \begin{mathpar}
   
 \Infer{[\IsVal{v}]}{\IsVal{\sindincst{e}}}
 
+\Infer{e \StepsTo e'}{\indreccst{e}{e_1}{e_2} \StepsTo \indreccst{e'}{e_1}{e_2}}
 
+\Infer{\IsVal{\indinabt{t}{\tau}{e}}}
+  {\indreccst{\indinabt{t}{\tau}{e}}{x}{e_1} \StepsTo
+    \Subst{\genexabt{t}{\tau}{y}{\indreccst{y}{x}{e_1}}{e}}{x}{e_1}}
+
+\end{mathpar}
+
+\subsubsection{Coinductive Types}
+When we have $\coigencst{e}{x}{e_1}$, $e$ is the initial state. When we unfold,
+$\AbsABT{x}{e_1}$ takes in $x$, the current state, and generates the new state.
+Each recursive part is a new stream with a new state.
+\begin{mathpar}
+
+\Infer{[\IsVal{v}]}{\IsVal{\coigencst{e}{x}{e_1}}}
+
+\Infer{e \StepsTo e'}{\scoioutcst{e} \StepsTo \scoioutcst{e'}}
+
+\Infer{\IsVal{\coigenabt{t}{\tau}{e}{x}{e_1}}}
+  {\scoioutcst{\coigenabt{t}{\tau}{e}{x}{e_1}} \StepsTo
+    \genexabt{t}{\tau}{y}{\coigencst{y}{x}{e_1}}{\Subst{e}{x}{e_1}}}
 
 \end{mathpar}
