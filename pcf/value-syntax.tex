@@ -1,0 +1,12 @@
+In this case, only functions can be recursive. No more $\genrecabt{\tau}{x}{e}$.
+
+\subsection{Syntax}
+
+\begin{synchart}{e}
+  \TypeSort     & \tau & \bnfdef & \ldots                           & \ldots                           & \text{everything else} \\
+                &      & \bnfalt & \parrtyabt{\tau_1}{\tau_2}       & \parrtycst{\tau_1}{\tau_2}       & \text{partial function} \\
+  \\
+  \ExprSort     & e    & \bnfdef & \ldots                           & \ldots                           & \text{everything else} \\
+                &      & \bnfalt & \funabt{\tau_1}{\tau_2}{f}{x}{e} & \funcst{\tau_1}{\tau_2}{f}{x}{e} & \text{recursive function}
+\end{synchart}
+As before, this does not include inductive/coinductive types.

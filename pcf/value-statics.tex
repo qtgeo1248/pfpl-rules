@@ -1,0 +1,10 @@
+\subsection{Statics}
+
+\boxed{\typeJ{\Gamma}{e}{\tau}}
+\begin{mathpar}
+
+\Infer
+  {\typeJ{\Gamma, \IsOf{f}{\parrtycst{\tau_1}{\tau_2}}, \IsOf{y}{\tau_1}}{e}{\tau_2}}
+  {\typeJ{\Gamma}{\funabt{\tau_1}{\tau_2}{f}{x}{e}}{\parrtycst{\tau_1}{\tau_2}}}
+
+\end{mathpar}

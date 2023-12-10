@@ -1,0 +1,14 @@
+\subsection{Dynamics}
+
+\boxed{\IsVal{v}}
+\boxed{e \StepsTo e'}
+\begin{mathpar}
+
+\Infer{\strut}{\IsVal{\funabt{\tau_1}{\tau_2}{f}{x}{e}}}
+
+\Infer
+  {\IsVal{v_2}}
+  {\uappabt{\funabt{\tau_1}{\tau_2}{f}{x}{e}}{v_2} \StepsTo
+    \Subst{\funabt{\tau_1}{\tau_2}{f}{x}{e}, v_2}{f, x}{e}}
+
+\end{mathpar}
