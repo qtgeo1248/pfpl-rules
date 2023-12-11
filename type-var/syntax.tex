@@ -1,0 +1,14 @@
+\subsection{Syntax}
+
+\begin{synchart}{}
+  \TypeSort{} & \tau & \bnfdef & \ldots                               & \ldots                               & \text{everything else} \\
+              &      & \bnfalt & \alltyabt{t}{\tau}                   & \alltycst{t}{\tau}                   & \text{universal type} \\
+              &      & \bnfalt & \sometyabt{t}{\tau}                  & \sometycst{t}{\tau}                  & \text{existential type} \\
+  \\
+  \ExprSort{} & e    & \bnfdef & \ldots                               & \ldots                               & \text{everything else} \\
+              &      & \bnfalt & \tlamabt{t}{e}                       & \tlamcst{t}{e}                       & \text{type abstraction} \\
+              &      & \bnfalt & \tappabt{e}{t}                       & \tappcst{e}{t}                       & \text{type application} \\
+              &      & \bnfalt & \packabt{\rho}{e}                    & \packcst{t}{\tau}{\rho}{e}           & \text{implementation} \\
+              &      & \bnfalt & \opnabt{\rho}{e}{t}{x}{e_1}          & \opncst{t}{\tau}{\rho}{e}{t}{x}{e_1} & \text{client} \\
+\end{synchart}
+

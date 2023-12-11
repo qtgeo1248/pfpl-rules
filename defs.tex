@@ -37,6 +37,10 @@
 \newcommand{\Ok}{\mathsf{ok}}
 \newcommand{\DIsnt}[2]{\ensuremath{\JInfix{#1}{\mathsf{isnt}}{#2}}}
 
+% F
+\renewcommand{\packabt}[2]{\OpABTp{\kw{pack}}{#1}{#2}}
+\renewcommand{\opnabt}[5]{\OpABTp{\kw{open}}{#1}{#2;\AbsABT{#3,#4}{#5}}}
+
 % KPCF
 \newcommand{\StackSort}{\Sort{Stack}}
 \newcommand{\StateSort}{\Sort{State}}

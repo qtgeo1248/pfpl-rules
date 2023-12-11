@@ -1,0 +1,62 @@
+\subsection{Statics}
+We need to equip another context for all our type variables now:
+\[\Delta \bnfdef \cdot \,|\, \Delta, \IsType{t}\]
+
+\boxed{\Delta \entails \IsType{\tau}}
+\begin{mathpar}
+  
+\Infer{\strut}{\Delta, \IsType{t} \entails \IsType{t}}
+
+\Infer{\strut}{\Delta \entails \IsType{\unittyabt}}
+
+\Infer{\strut}{\Delta \entails \IsType{\voidtyabt}}
+
+\Infer
+  {\Delta \entails \IsType{\tau_1} \\ \Delta \entails \IsType{\tau_2}}
+  {\Delta \entails \IsType{\prodtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\Delta \entails \IsType{\tau_1} \\ \Delta \entails \IsType{\tau_2}}
+  {\Delta \entails \IsType{\sumtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\Delta \entails \IsType{\tau_1} \\ \Delta \entails \IsType{\tau_2}}
+  {\Delta \entails \IsType{\arrtycst{\tau_1}{\tau_2}}}
+
+\Infer
+  {\Delta, \IsType{t} \entails \IsType{\tau}}
+  {\Delta \entails \IsType{\alltycst{t}{\tau}}}
+
+\Infer
+  {\Delta, \IsType{t} \entails \IsType{\tau}}
+  {\Delta \entails \IsType{\sometycst{t}{\tau}}}
+
+\end{mathpar}
+
+\boxed{\Gamma \entails[\Delta]{\IsOf{e}{\tau}}}
+\subsubsection{Universal Types}
+\begin{mathpar}
+  
+\Infer
+  {\Gamma \entails[\Delta, \IsType{t}] \IsOf{e}{\tau}}
+  {\Gamma \entails[\Delta] \IsOf{\tlamabt{t}{e}}{\alltycst{t}{\tau}}}
+
+\Infer
+  {\Gamma \entails[\Delta] \IsOf{e}{\alltycst{t}{\tau}} \\ \Delta \entails \IsType{\sigma}}
+  {\Gamma \entails[\Delta] \IsOf{\tappabt{e}{\sigma}}{\Subst{\sigma}{t}{\tau}}}
+
+\end{mathpar}
+
+\subsubsection{Existential Types}
+\begin{mathpar}
+  
+\Infer
+  {\Delta \entails \IsType{\rho} \\ \Gamma \entails[\Delta] \IsOf{e}{\Subst{\rho}{t}{\tau}}}
+  {\Gamma \entails[\Delta] \IsOf{\packabt{\rho}{e}}{\sometycst{t}{\tau}}}
+
+\Infer
+  {\Gamma \entails[\Delta] \IsOf{e}{\sometycst{t}{\tau}}}
+  {\Gamma \entails[\Delta] \opnabt{\rho}{e}{t}{x}{e_1}}
+
+\end{mathpar}
+

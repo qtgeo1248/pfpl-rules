@@ -1,0 +1,26 @@
+\subsection{Dynamics}
+
+\boxed{e \StepsTo e'}
+\subsubsection{Universal Types}
+\begin{mathpar}
+  
+\Infer
+  {e \StepsTo e'}
+  {\tappabt{e}{\tau} \StepsTo \tappabt{e'}{\tau}}
+
+\Infer{\strut}{\IsVal{\tlamabt{t}{e}}}
+
+\Infer{\strut}{\tappabt{\tlamabt{t}{e}}{\sigma} \StepsTo \Subst{\sigma}{t}{e}}
+
+\end{mathpar}
+
+\subsubsection{Existential Types}
+\begin{mathpar}
+
+\Infer{e \StepsTo e'}{\opnabt{\rho}{e}{t}{x}{e_1} \StepsTo
+  \opnabt{\rho}{e'}{t}{x}{e_1}}
+  
+\Infer{\strut}{\opnabt{\rho}{\packabt{\rho}{e}}{t}{x}{e_1} \StepsTo
+  \Subst{\rho, e}{t, x}{e_1}}
+
+\end{mathpar}

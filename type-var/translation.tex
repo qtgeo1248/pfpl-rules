@@ -1,0 +1,22 @@
+\subsection{Translation}
+
+We can translate a lot of the things we've seen into Universal Types.
+\begin{align*}
+  \unittycst                        &\isdef \alltycst{t}{\arrtycst{t}{t}} \\
+  \unitexcst                        &\isdef \tlamabt{t}{\lamcst{t}{x}{x}} \\
+  \voidtyabt                        &\isdef \alltycst{t}{t} \\
+  \absurdexabt{\tau}{e}             &\isdef \tappcst{e}{\tau} \\ 
+  \sumtyabt{\tau_1}{\tau_2}         &\isdef \alltycst{r}{(\tau_1 \to r) \to (\tau_2 \to r) \to r} \\
+  \inlexcst{}{}{e}                  &\isdef \tlamabt{r}{\ulamabt{u_1}{\ulamabt{u_2}{u_1(e)}}} \\
+  \inrexcst{}{}{e}                  &\isdef \tlamabt{r}{\ulamabt{u_1}{\ulamabt{u_2}{u_2(e)}}} \\
+  \caseexabt{e}{x}{}{e_1}{y}{}{e_2} &\isdef \tappcst{e}{\rho}(\lamcst{\tau_1}{x}{e_1})(\lamcst{\tau_2}{y}{e_2}) \\ 
+  \prodtycst{\tau_1}{\tau_2}        &\isdef \alltycst{r}{(\tau_1 \to \tau_2 \to r) \to r} \\ 
+  \fstexabt{e}                      &\isdef \tappcst{e}{\tau_1}(\ulamabt{x_1}{\ulamabt{x_2}{x_1}}) \\
+  \sndexabt{e}                      &\isdef \tappcst{e}{\tau_2}(\ulamabt{x_1}{\ulamabt{x_2}{x_2}}) \\
+  \pairexcst{e_1}{e_2}              &\isdef \tlamabt{r}{\ulamabt{h}{h(e_1)(e_2)}} \\
+  \nattyabt                         &\isdef \alltycst{r}{r \to (r \to r) \to r} \\
+  \zeroabt                          &\isdef \tlamabt{r}{\ulamabt{b}{\ulamabt{s}{b}}} \\ 
+  \succabt{e}                       &\isdef \tlamabt{r}{\ulamabt{b}{\ulamabt{s}{\tappcst{e}{r}(b)(s)}}} \\
+  \natiterabt{\rho}{e}{e_0}{x}{e_1} &\isdef \tappcst{e}{\rho}(e_0)(\lamabt{\rho}{x}{e_1} \\
+  \sometycst{t}{\tau}               &\isdef \alltycst{u}{(\alltycst{t}{\tau \to u}) \to u}
+\end{align*}
