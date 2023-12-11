@@ -25,6 +25,18 @@
 \renewcommand{\coityabt}[2]{\OpABT{\kw{coi}}{\AbsABT{#1}{#2}}}
 \renewcommand{\coigencst}[3]{\OpABT{\kw{gen}}{#1;\AbsABT{#2}{#3}}}
 
+% DPCF
+\newcommand{\dbooltag}{\kw{bool}}
+\newcommand{\dinttag}{\kw{int}}
+\newcommand{\dlisttag}{\kw{list}}
+\renewcommand{\dfuntag}{\kw{fun}}
+\renewcommand{\dfunabt}[3]{\OpABT{\kw{fun}}{\AbsABT{#1}{\AbsABT{#2}{#3}}}}
+\newcommand{\disinstanceabt}[2]{\OpABT{\OpInst{\kw{isinstance}}{#2}}{#1}}
+\newcommand{\disinstancecst}[2]{\texttt{isinstance(}{#1}\texttt{, }{#2}\texttt{)}}
+
+\newcommand{\Ok}{\mathsf{ok}}
+\newcommand{\DIsnt}[2]{\ensuremath{\JInfix{#1}{\mathsf{isnt}}{#2}}}
+
 % KPCF
 \newcommand{\StackSort}{\Sort{Stack}}
 \newcommand{\StateSort}{\Sort{State}}

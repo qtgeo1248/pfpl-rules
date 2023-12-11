@@ -1,0 +1,64 @@
+\subsection{Dynamics}
+
+\subsubsection{Tag Refutation}
+
+\boxed{\DIsnt{d}{c}}
+\boxed{\DIsNum{d}{n}}
+\boxed{\DIsFun{d}{f}{\AbsABT{x}{d}}}
+\begin{mathpar}
+  \Infer{\strut}{\DIsnt{\zeroabt}{\dfuntag}}
+
+  \Infer{\IsVal{d}}{\DIsnt{\succabt{d}}{\dfuntag}}
+
+  \Infer{\strut}{\DIsnt{\dfunabt{f}{x}{d}}{\dinttag}}
+
+  \Infer{\strut}{\DIsNum{\numabt{n}}{n}}
+
+  \Infer{\strut}{\DIsFun{\dfunabt{f}{x}{d}}{f}{\AbsABT{x}{d}}}
+\end{mathpar}
+
+\subsubsection{Stepping}
+
+\boxed{\IsVal{d}}
+\boxed{d \StepsTo d'}
+\boxed{\DIsErr{d}}
+\begin{mathpar}
+  \Infer{\strut}{\IsVal{\numabt{n}}}
+
+  \Infer{\strut}{\zeroabt \StepsTo \numabt{0}}
+
+  \Infer{d \StepsTo d'}{\succabt{d} \StepsTo \succabt{d'}}
+
+  \Infer{\strut}{\succabt{\numabt{n}} \StepsTo \numabt{n + 1}}
+
+  \Infer{\DIsnt{d}{\dinttag}}{\DIsErr{\succabt{d}}}
+
+  \Infer
+    {d \StepsTo d'}
+    {\ifzcmdabt{d}{d_0}{\AbsABT{x}{d_1}} \StepsTo \ifzcmdabt{d'}{d_0}{\AbsABT{x}{d_1}}}
+
+  \Infer
+    {\DIsNum{d}{0}}
+    {\ifzcmdabt{d}{d_0}{\AbsABT{x}{d_1}} \StepsTo d_0}
+
+  \Infer
+    {\DIsNum{d}{n + 1}}
+    {\ifzcmdabt{d}{d_0}{\AbsABT{x}{d_1}} \StepsTo \Subst{\numabt{n}}{x}{d_1}}
+
+  \Infer{\strut}{\IsVal{\dfunabt{f}{x}{d}}}
+
+  \Infer
+    {d_1 \StepsTo d_1'}
+    {\appabt{d_1}{d_2} \StepsTo \appabt{d_1'}{d_2}}
+
+  \Infer
+    {\IsVal{d_1} \\ d_2 \StepsTo d_2'}
+    {\appabt{d_1}{d_2} \StepsTo \appabt{d_1}{d_2'}}
+
+  \Infer{\DIsFun{d_1}{f}{\AbsABT{x}{d}}}{\appabt{d_1}{d_2} \StepsTo
+    \Subst{\dfunabt{f}{x}{d}, d_2}{f, x}{d}}
+
+  \Infer
+    {\DIsnt{d_1}{\dfuntag}}
+    {\DIsErr{\appabt{d_1}{d_2}}}
+\end{mathpar}

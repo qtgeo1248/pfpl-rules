@@ -1,0 +1,16 @@
+\subsection{Syntax}
+
+\begin{synchart}{}
+  \Sort{Class}    & c & ::= & \dinttag                            & \dinttag \\
+                  &   &     & \dfuntag                            & \dfuntag \\
+                  &   &     & \ldots                              & \ldots                              & \text{and many more} \\
+  \\
+  \Sort{Object}   & d & ::= & x                                   & x                                   & \text{variable} \\
+                  &   &     & \zeroabt                            & \zerocst                            & \text{zero} \\
+                  &   &     & \succabt{d_1}                       &                                     & \text{successor} \\
+                  &   &     & \numabt{n}                          & \numcst{n}                          & \text{integer} \\
+                  &   &     & \ifzcmdabt{d}{d_0}{\AbsABT{x}{d_1}} & \ifzcmdabt{d}{d_0}{\AbsABT{x}{d_1}} & \text{zero test} \\
+                  &   &     & \dfunabt{f}{x}{d}                   &                                     & \text{function} \\
+                  &   &     & \dappabt{d}{d_1}                    & \dappcst{d}{d_1} \\
+                  &   &     & \ldots                              & \ldots                              & \text{and many more} \\
+\end{synchart}
