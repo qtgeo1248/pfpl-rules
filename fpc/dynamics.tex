@@ -4,6 +4,26 @@
 \boxed{e \StepsTo e'}
 \begin{mathpar}
   
+\Infer
+  {[\IsVal{e}]}
+  {\IsVal{\foldexcst{t}{\tau}{e}}}
+
+\left[
+  \Infer
+    {e \StepsTo e'}
+    {\foldexcst{t}{\tau}{e} \StepsTo \foldexabt{t}{\tau}{e}}
+\right]
+
+\Infer
+  {e \StepsTo e'}
+  {\unfoldexabt{e} \StepsTo \unfoldexabt{e'}}
+
+\Infer
+  {\IsVal{\foldexcst{t}{\tau}{e}}}
+  {\unfoldexabt{\foldexcst{t}{\tau}{e}} \StepsTo e}
+
+\\
+  
 \Infer{\strut}{\IsVal{\selfexabt{\tau}{x}{e}}}
 
 \Infer

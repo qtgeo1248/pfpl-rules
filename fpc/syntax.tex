@@ -2,9 +2,12 @@
 
 \begin{synchart}{}
   \TypeSort     & \tau & \bnfdef & \ldots                 & \ldots                 & \text{everything else} \\
+                &      & \bnfalt & \rectyabt{t}{\tau}     & \rectycst{t}{\tau}     & \text{recursive type} \\
                 &      & \bnfalt & \selftyabt{\tau}       & \selftycst{\tau}       & \text{self-referential type} \\
   \\
   \ExprSort     & e    & \bnfdef & \ldots                 & \ldots                 & \text{everything else} \\
+                &      & \bnfalt & \foldexabt{t}{\tau}{e} & \foldexcst{t}{\tau}{e} & \text{fold} \\
+                &      & \bnfalt & \unfoldexabt{e}        & \unfoldexcst{e}        & \text{unfold} \\
                 &      & \bnfalt & \selfexabt{\tau}{x}{e} & \selfexcst{\tau}{x}{e} & \text{self-referential expression} \\
                 &      & \bnfalt & \unselfexabt{e}        & \unselfexcst{e}        & \text{unroll self-reference}
 \end{synchart}

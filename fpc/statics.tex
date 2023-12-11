@@ -2,6 +2,16 @@
 
 \boxed{\typeJ{\Gamma}{e}{\tau}}
 \begin{mathpar}
+  
+\Infer
+  {\typeJ{\Gamma}{e}{\Subst{\rectyabt{t}{\tau}}{t}{\tau}}}
+  {\typeJ{\Gamma}{e}{\rectyabt{t}{\tau}}}
+
+\Infer
+  {\typeJ{\Gamma}{e}{\rectyabt{t}{\tau}}}
+  {\typeJ{\Gamma}{\unfoldexabt{e}}{\Subst{\rectyabt{t}{\tau}}{t}{\tau}}}
+
+\\
 
 \Infer
   {\typeJ{\Gamma, \IsOf{x}{\selftycst{\tau}}}{e}{\tau}}
