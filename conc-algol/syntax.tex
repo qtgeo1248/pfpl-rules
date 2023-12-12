@@ -16,16 +16,18 @@
                 &        & \bnfalt & \synccmdabt{e}            & \synccmdcst{e}            & \text{receive message on channel} \\
                 &        & \bnfalt & \newchncmdabt{a}{\tau}{m} & \newchncmdcst{a}{\tau}{m} & \text{new channel} \\
   \\
-  \Sort{Proc}   & p      & \bnfdef & \stopprocabt              & \stopproccst             & \text{nullary concurrent composition} \\
-                &        & \bnfalt & \concprocabt{p_1}{p_2}    & \concproccst{p_1}{p_2}   & \text{binary concurrent composition} \\
-                &        & \bnfalt & \tnewprocabt{\tau}{a}{p}  & \tnewproccst{\tau}{a}{p} & \text{new channel} \\
-                &        & \bnfalt & \atprocabt{a}{m}          & \atproccst{a}{m}         & \text{atomic} \\
-                &        & \bnfalt & \sendprocabt{a}{e}        & \sendproccst{a}{e}       & \text{send on channel $a$} \\
-                &        & \bnfalt & \recvprocabt{a}{x}{p}     & \recvproccst{a}{x}{p}    & \text{receive on channel $a$} \\
+  \Sort{Proc}   & p      & \bnfdef & \stopprocabt              & \stopproccst              & \text{nullary concurrent composition} \\
+                &        & \bnfalt & \concprocabt{p_1}{p_2}    & \concproccst{p_1}{p_2}    & \text{binary concurrent composition} \\
+                &        & \bnfalt & \choiceevtexabt{p_1}{p_2} & \choiceevtexcst{p_1}{p_2} & \text{choice composition} \\
+                &        & \bnfalt & \indtycst{x}{P}           & \indtycst{x}{P}           & \text{repetition} \\
+                &        & \bnfalt & \sendprocabt{a}{e}        & \sendproccst{a}{e}        & \text{send on channel $a$} \\
+                &        & \bnfalt & \recvprocabt{a}{x}{p}     & \recvproccst{a}{x}{p}     & \text{receive on channel $a$} \\
+                &        & \bnfalt & \tnewprocabt{\tau}{a}{p}  & \tnewproccst{\tau}{a}{p}  & \text{new channel} \\
+                &        & \bnfalt & \atprocabt{a}{m}          & \atproccst{a}{m}          & \text{atomic} \\
   \\
-  \Sort{Action} & \alpha & \bnfdef & \silactabt                & \silactcst               & \text{silent} \\
-                &        & \bnfalt & \tsndactabt{}{a}{e}       & \tsndactcst{}{a}{e}      & \text{send} \\
-                &        & \bnfalt & \trcvactabt{}{a}{e}       & \trcvactcst{}{a}{e}      & \text{receive} \\
+  \Sort{Action} & \alpha & \bnfdef & \silactabt                & \silactcst                & \text{silent} \\
+                &        & \bnfalt & \tsndactabt{}{a}{e}       & \tsndactcst{}{a}{e}       & \text{send} \\
+                &        & \bnfalt & \trcvactabt{}{a}{e}       & \trcvactcst{}{a}{e}       & \text{receive} \\
 \end{synchart}
 
 \newcommand{\highlight}[1]{\colorbox{black!10}{#1}}

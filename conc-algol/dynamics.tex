@@ -65,6 +65,10 @@ The dynamics of processes are given via actions $\alpha$; the judgment $\jpstepp
   {\jpstepp{\concproccst{p_1}{p_2}}{\alpha}{\Sigma}{\concproccst{p_1'}{p_2}}}
 
   \infern
+  {\strut}
+  {\jpstepp{\choiceevtexcst{p_1}{p_2}}{}{\Sigma}{p_1}}
+
+  \infern
   {\jpstepp{p_1}{\tsndactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{p_1'} \\
     \jpstepp{p_2}{\trcvactcst{}{a}{e}}{\Sigma, \Has{a}{\tau}}{p_2'}
   }

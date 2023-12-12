@@ -169,6 +169,18 @@ Rule E$_{12}$ is called \emph{scope extrusion}, since it allows the scope of $a$
   {a_1 \ne a_2}
   {\jspeq{\recvproccst{a_2}{x}{\tnewproccst{\tau}{a_1}{p}}}
     {\tnewproccst{\tau}{a_1}{\recvproccst{a_2}{x}{p}}}}
+  \and
+  \infern
+  {\strut}
+  {\jspeq{\indtycst{x}{P}}{\Subst{\indtycst{x}{P}}{x}{P}}}
+  \and
+  \infern
+  {x' \not \in P}
+  {\jspeq{\indtycst{x}{P}}{\indtycst{x'}{\Subst{x'}{x}{P}}}}
+  \and
+  \infern
+  {a' \not \in P}
+  {\jspeq{\tnewproccst{\tau}{a}{P}}{\tnewproccst{\tau}{a'}{\Subst{a'}{a}{P}}}}
 \end{mathpar}
 
 \subsubsection{Actions}
